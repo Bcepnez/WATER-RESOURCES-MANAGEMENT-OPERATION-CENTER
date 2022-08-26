@@ -1,9 +1,10 @@
 ﻿@page "/"
 @inject IJSRuntime JS
+@using System.Globalization
 <!-- @using BlazorApp5.Components -->
 
 
-<PageTitle>Province Website System</PageTitle>
+<PageTitle>ศูนย์ข้อมูลน้ำระดับจังหวัด</PageTitle>
 
 <!-- <h1>ศูนย์ข้อมูลระดับน้ำจังหวัด</h1> -->
 
@@ -14,7 +15,7 @@
 
 
 
-<button @onclick="GeneratColumnHighChart" class="btn btn-info">Show Column HighChart</button>
+<button @onclick="GeneratRainLevelHighChart" class="btn btn-info">Show Column HighChart</button>
 
 
 
@@ -25,7 +26,7 @@
                 <div class="card">
                     <div class="card-body text-center d-flex flex-column align-items-center">
                         <img src="Image/logo/icons/storm.png" class="img-fluid mt-3 mb-3 pr-3 pl-3" alt="">
-                        <h5 class="font-weight-bold">@text</h5>เข้าใกล้ประเทศไทย
+                        <h5 class="font-weight-bold">@storm_status</h5>เข้าใกล้ประเทศไทย
                     </div>
                 </div>
             </div>
@@ -34,8 +35,9 @@
                     <div class="card-body text-center">
                         <div class="d-flex flex-column">
                             <div class="d-flex justify-content-center align-items-center mb-3"><img
-                                    src="images/icons/dams/dam_L3.png" class="img-fluid" alt="">
-                                <h1 class="display-4 text-primary font-weight-bold mb-0 pl-1">60<small>%</small></h1>
+                                    src="Image/logo/icons/dam_L3.png" class="img-fluid" alt="">
+                                <h1 class="display-4 text-primary font-weight-bold mb-0 pl-1">
+                                    @dam_use_percentage<small>%</small></h1>
                             </div>
                             <div>น้ำใช้การของ</div>
                             <div>
@@ -43,8 +45,8 @@
                                     <div title="">&nbsp;<span class="h4 mb-0">เขื่อน</span></div>
                                 </h1>
                             </div>
-                            <h2 class="font-weight-bold mb-0">132 <span class="h6">ล้าน ลบ.ม.</span></h2>
-                            <div><small> ล่าสุด 2022-08-26</small></div>
+                            <h2 class="font-weight-bold mb-0">@dam_use <span class="h6">ล้าน ลบ.ม.</span></h2>
+                            <div><small> ล่าสุด @_dateString</small></div>
                         </div>
                     </div>
                 </div>
@@ -53,7 +55,7 @@
                 <div class="card RainingCard">
                     <div class="card-body">
                         <div class="d-flex justify-content-center align-items-center">
-                            <div class="px-2"><img src="images/icons/raining-icon.png" alt=""></div>
+                            <div class="px-2"><img src="Image/logo/icons/raining-icon.png" alt=""></div>
                             <div>
                                 <div><strong>24 ช.ม</strong>&nbsp;ที่ผ่านมา</div>
                                 <div>มีฝนสะสมสูงสุด (มม.)</div>
@@ -846,9 +848,11 @@
                                             <div class=""></div>
                                         </div>
                                     </div>
-                                    <div class="chart-info"><img src="images/icons/raining-24-amount.png" alt="">
+                                    <div class="chart-info"><img src="Image/logo/icons/rain-level/raining-24-amount.png"
+                                            alt="">
                                         <div>สถานีวัดปริมาณฝน</div>
-                                        <h3><span>64</span>&nbsp;<small>สถานี</small></h3>
+                                        <h3><span>@rain_level_measurement_station_total</span>&nbsp;<small>สถานี</small>
+                                        </h3>
                                     </div><canvas height="1368" width="1368"
                                         style="display: block; height: 684px; width: 684px;"
                                         class="chartjs-render-monitor"></canvas>
@@ -861,7 +865,8 @@
                                             <td><img src="images/icons/raining/raining-5.png" alt=""></td>
                                             <td>ฝนตกหนักมาก</td>
                                             <td>
-                                                <div class="badge text-white" style="background: rgb(218, 53, 46);">0
+                                                <div class="badge text-white" style="background: rgb(218, 53, 46);">
+                                                    @rain_level_measurement_station_total_critical_over
                                                 </div>
                                             </td>
                                             <td>สถานี</td>
@@ -870,7 +875,8 @@
                                             <td><img src="images/icons/raining/raining-4.png" alt=""></td>
                                             <td>ฝนตกหนัก</td>
                                             <td>
-                                                <div class="badge text-white" style="background: rgb(254, 138, 4);">2
+                                                <div class="badge text-white" style="background: rgb(254, 138, 4);">
+                                                    @rain_level_measurement_station_total_over
                                                 </div>
                                             </td>
                                             <td>สถานี</td>
@@ -879,7 +885,8 @@
                                             <td><img src="images/icons/raining/raining-3.png" alt=""></td>
                                             <td>ฝนตกปานกลาง</td>
                                             <td>
-                                                <div class="badge text-white" style="background: rgb(156, 238, 178);">11
+                                                <div class="badge text-white" style="background: rgb(156, 238, 178);">
+                                                    @rain_level_measurement_station_total_fair
                                                 </div>
                                             </td>
                                             <td>สถานี</td>
@@ -888,7 +895,8 @@
                                             <td><img src="images/icons/raining/raining-2.png" alt=""></td>
                                             <td>ฝนตกเล็กน้อย</td>
                                             <td>
-                                                <div class="badge text-white" style="background: rgb(185, 218, 251);">19
+                                                <div class="badge text-white" style="background: rgb(185, 218, 251);">
+                                                    @rain_level_measurement_station_total_under
                                                 </div>
                                             </td>
                                             <td>สถานี</td>
@@ -898,7 +906,8 @@
                                             <td>ไม่มีฝน</td>
                                             <td>
                                                 <div class="badge badge-secondary"
-                                                    style="background: rgb(220, 220, 220);">32</div>
+                                                    style="background: rgb(220, 220, 220);">
+                                                    @rain_level_measurement_station_total_no_rain</div>
                                             </td>
                                             <td>สถานี</td>
                                         </tr>
@@ -915,11 +924,25 @@
                         <div class="row align-items-center">
                             <div class="col-xl-9">
                                 <div class="chart">
-                                    <div class="chart-info"><img src="Image/logo/icons/water-level/water-level-24-icon.png" alt="">
+                                    <div class="chart-info"><img
+                                            src="Image/logo/icons/water-level/water-level-24-icon.png" alt="">
                                         <div>สถานีวัดระดับน้ำ</div>
-                                        <h3><span>31</span>&nbsp;<small>สถานี</small></h3>
+                                        <h3><span>@water_level_measurement_station_total</span>&nbsp;<small>สถานี</small>
+                                        </h3>
                                     </div>
-                                    <div id="wl_doughnut">
+
+                                    <!-- Chart -->
+
+                                    <RadzenCard class="m-3">
+                                        <h3 class="h5">ปริมาณน้ำฝน</h3>
+                                        <figure class="highcharts-figure">
+                                            <div id="rain_level"></div>
+                                        </figure>
+                                    </RadzenCard>
+                                    <!-- <figure class="highcharts-figure">
+                                        <div id="rain_level"></div>
+                                    </figure> -->
+                                    <!-- <div id="wl_doughnut">
                                         <div class="chartjs-size-monitor">
                                             <div class="chartjs-size-monitor-expand">
                                                 <div class=""></div>
@@ -930,7 +953,7 @@
                                         </div><canvas height="1368" width="1368"
                                             style="display: block; height: 684px; width: 684px;"
                                             class="chartjs-render-monitor"></canvas>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="col-xl-9">
@@ -940,52 +963,59 @@
                                             <td><img src="Image/logo/icons/water-level/1-water-level.png" alt=""></td>
                                             <td>น้ำล้นตลิ่ง</td>
                                             <td>
-                                                <div class="badge text-white" style="background: rgb(240, 75, 79);">1
+                                                <div class="badge text-white" style="background: rgb(240, 75, 79);">
+                                                    @water_level_measurement_station_total_critical_over
                                                 </div>
                                             </td>
                                             <td>สถานี</td>
                                         </tr>
                                         <tr>
-                                            <td><img src="images/icons/water-level/2-water-level.png" alt=""></td>
+                                            <td><img src="Image/logo/icons/water-level/2-water-level.png" alt=""></td>
                                             <td>น้ำมาก</td>
                                             <td>
-                                                <div class="badge text-white" style="background: rgb(97, 121, 185);">6
+                                                <div class="badge text-white" style="background: rgb(97, 121, 185);">
+                                                    @water_level_measurement_station_total_over
                                                 </div>
                                             </td>
                                             <td>สถานี</td>
                                         </tr>
                                         <tr>
-                                            <td><img src="images/icons/water-level/3-water-level.png" alt=""></td>
+                                            <td><img src="Image/logo/icons/water-level/3-water-level.png" alt=""></td>
                                             <td>น้ำปกติ</td>
                                             <td>
-                                                <div class="badge text-white" style="background: rgb(50, 191, 113);">1
+                                                <div class="badge text-white" style="background: rgb(50, 191, 113);">
+                                                    @water_level_measurement_station_total_fair
                                                 </div>
                                             </td>
                                             <td>สถานี</td>
                                         </tr>
                                         <tr>
-                                            <td><img src="images/icons/water-level/4-water-level.png" alt=""></td>
+                                            <td><img src="Image/logo/icons/water-level/4-water-level.png" alt=""></td>
                                             <td>น้ำน้อย</td>
                                             <td>
-                                                <div class="badge text-white" style="background: rgb(248, 199, 68);">0
+                                                <div class="badge text-white" style="background: rgb(248, 199, 68);">
+                                                    @water_level_measurement_station_total_under
                                                 </div>
                                             </td>
                                             <td>สถานี</td>
                                         </tr>
                                         <tr>
-                                            <td><img src="images/icons/water-level/5-water-level.png" alt=""></td>
+                                            <td><img src="Image/logo/icons/water-level/5-water-level.png" alt=""></td>
                                             <td>น้ำน้อยวิกฤติ</td>
                                             <td>
-                                                <div class="badge text-white" style="background: rgb(226, 153, 85);">0
+                                                <div class="badge text-white" style="background: rgb(226, 153, 85);">
+                                                    @water_level_measurement_station_total_critical_under
                                                 </div>
                                             </td>
                                             <td>สถานี</td>
                                         </tr>
                                         <tr>
-                                            <td><img src="images/icons/water-level/no-information-icon.png" alt=""></td>
+                                            <td><img src="Image/logo/icons/water-level/no-information-icon.png" alt="">
+                                            </td>
                                             <td>ไม่มีข้อมูล</td>
                                             <td>
-                                                <div class="badge badge-secondary">23</div>
+                                                <div class="badge badge-secondary">
+                                                    @water_level_measurement_station_total_no_data</div>
                                             </td>
                                             <td>สถานี</td>
                                         </tr>
@@ -1000,7 +1030,7 @@
     </div>
 </div>
 
-<div class="col-xl-auto my-2">
+<!-- <div class="col-xl-auto my-2">
     <div class="card WaterDamCard">
         <div class="card-body text-center">
             <div class="d-flex flex-column">
@@ -1013,247 +1043,9 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row my-5">
-    <div class="col-lg-6 col-xl-4 offset-lg-3 offset-xl-4">
-        <RadzenCard class="m-3">
-            <h3 class="h5">ทดสอบ</h3>
-            <figure class="highcharts-figure">
-                <div id="container"></div>
-            </figure>
-        </RadzenCard>
-        <RadzenCard class="m-3">
-            <h3 class="h5">ปริมาณน้ำฝน</h3>
-            <figure class="highcharts-figure">
-                <div id="rain_level"></div>
-            </figure>
-        </RadzenCard>
-        <div class="col-sm-12 col-md-6 col-lg-3" _bl_298="">
+</div> -->
 
-            <div class="card" _bl_308="">
-                <div class="card-body" _bl_316="">
-                    <div class="d-flex align-items-center">
-                        <div class="subheader">Revenue</div>
-                        <div class="ms-auto lh-1">
-                            <span id="533a0945-4d94-4af6-93a1-ded7712a790f">
-                                <div class="dropdown cursor-pointer" style="" _bl_328="">
-                                    <a class="dropdown-toggle text-muted" aria-haspopup="true" aria-expanded="false">
-                                        Last 7 days
-                                    </a>
-                                </div>
-                            </span>
-                        </div>
-                    </div>
-                    <!--!-->
-                    <div class="d-flex align-items-baseline">
-                        <div class="h1 mb-3 me-2">528,590$</div>
-                        <!--!-->
-                        <div class="me-auto"><span class="text-red d-inline-flex align-items-center lh-1">
-                                <!--!-->
-                                -8%
-                                <!--!--><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                    stroke-linecap="round" stroke-linejoin="round" transform="rotate(0)">
-                                    <!--!-->
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                    <polyline points="3 7 9 13 13 9 21 17"></polyline>
-                                    <polyline points="21 10 21 17 14 17"></polyline>
-                                </svg>
-                            </span></div>
-                    </div>
-                    <!--!-->
-                    <div style="position: relative;">
-                        <!--!-->
-                        <div id="98a9904a451f4d04b766601a7a3bb42c" _bl_320="" style="min-height: 40px;">
-                            <div id="apexcharts98a9904a451f4d04b766601a7a3bb42c"
-                                class="apexcharts-canvas apexcharts98a9904a451f4d04b766601a7a3bb42c apexcharts-theme-light"
-                                style="width: 250px; height: 40px;"><svg id="SvgjsSvg1715" width="250" height="40"
-                                    xmlns="http://www.w3.org/2000/svg" version="1.1"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs"
-                                    class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)"
-                                    style="background: transparent;">
-                                    <g id="SvgjsG1717" class="apexcharts-inner apexcharts-graphical"
-                                        transform="translate(0, 0)">
-                                        <defs id="SvgjsDefs1716">
-                                            <clipPath id="gridRectMask2hsbjcla">
-                                                <rect id="SvgjsRect1737" width="257" height="43" x="-3.5" y="-1.5"
-                                                    rx="0" ry="0" opacity="1" stroke-width="0" stroke="none"
-                                                    stroke-dasharray="0" fill="#fff"></rect>
-                                            </clipPath>
-                                            <clipPath id="forecastMask2hsbjcla"></clipPath>
-                                            <clipPath id="nonForecastMask2hsbjcla"></clipPath>
-                                            <clipPath id="gridRectMarkerMask2hsbjcla">
-                                                <rect id="SvgjsRect1738" width="254" height="44" x="-2" y="-2" rx="0"
-                                                    ry="0" opacity="1" stroke-width="0" stroke="none"
-                                                    stroke-dasharray="0" fill="#fff"></rect>
-                                            </clipPath>
-                                        </defs>
-                                        <line id="SvgjsLine1722" x1="0" y1="0" x2="0" y2="40" stroke="#b6b6b6"
-                                            stroke-dasharray="3" class="apexcharts-xcrosshairs" x="0" y="0" width="1"
-                                            height="40" fill="#b1b9c4" filter="none" fill-opacity="0.9"
-                                            stroke-width="1"></line>
-                                        <g id="SvgjsG1750" class="apexcharts-xaxis" transform="translate(0, 0)">
-                                            <g id="SvgjsG1751" class="apexcharts-xaxis-texts-g"
-                                                transform="translate(0, -4)"></g>
-                                        </g>
-                                        <g id="SvgjsG1758" class="apexcharts-grid">
-                                            <g id="SvgjsG1759" class="apexcharts-gridlines-horizontal"
-                                                style="display: none;">
-                                                <line id="SvgjsLine1761" x1="0" y1="0" x2="250" y2="0" stroke="#e0e0e0"
-                                                    stroke-dasharray="0" class="apexcharts-gridline"></line>
-                                                <line id="SvgjsLine1762" x1="0" y1="8" x2="250" y2="8" stroke="#e0e0e0"
-                                                    stroke-dasharray="0" class="apexcharts-gridline"></line>
-                                                <line id="SvgjsLine1763" x1="0" y1="16" x2="250" y2="16"
-                                                    stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline">
-                                                </line>
-                                                <line id="SvgjsLine1764" x1="0" y1="24" x2="250" y2="24"
-                                                    stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline">
-                                                </line>
-                                                <line id="SvgjsLine1765" x1="0" y1="32" x2="250" y2="32"
-                                                    stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline">
-                                                </line>
-                                                <line id="SvgjsLine1766" x1="0" y1="40" x2="250" y2="40"
-                                                    stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline">
-                                                </line>
-                                            </g>
-                                            <g id="SvgjsG1760" class="apexcharts-gridlines-vertical"
-                                                style="display: none;"></g>
-                                            <line id="SvgjsLine1768" x1="0" y1="40" x2="250" y2="40"
-                                                stroke="transparent" stroke-dasharray="0"></line>
-                                            <line id="SvgjsLine1767" x1="0" y1="1" x2="0" y2="40" stroke="transparent"
-                                                stroke-dasharray="0"></line>
-                                        </g>
-                                        <g id="SvgjsG1739" class="apexcharts-area-series apexcharts-plot-series">
-                                            <g id="SvgjsG1740" class="apexcharts-series" seriesName="NetxValue"
-                                                data:longestSeries="true" rel="1" data:realIndex="1">
-                                                <path id="SvgjsPath1743"
-                                                    d="M 0 40L 0 39.00586666666667L 19.57070707070707 37.91146666666667L 58.08080808080808 38.88613333333333L 96.5909090909091 37.84106666666667L 116.16161616161617 39.9344L 135.73232323232324 39.8672L 153.4090909090909 38.944L 172.97979797979798 36.576L 191.91919191919192 34.940533333333335L 211.489898989899 39.9344L 230.42929292929293 38.4272L 250 34.800266666666666L 250 40M 250 34.800266666666666z"
-                                                    fill="rgba(32,107,196,0.85)" fill-opacity="1" stroke-opacity="1"
-                                                    stroke-linecap="butt" stroke-width="0" stroke-dasharray="3"
-                                                    class="apexcharts-area" index="1"
-                                                    clip-path="url(#gridRectMask2hsbjcla)"
-                                                    pathTo="M 0 40L 0 39.00586666666667L 19.57070707070707 37.91146666666667L 58.08080808080808 38.88613333333333L 96.5909090909091 37.84106666666667L 116.16161616161617 39.9344L 135.73232323232324 39.8672L 153.4090909090909 38.944L 172.97979797979798 36.576L 191.91919191919192 34.940533333333335L 211.489898989899 39.9344L 230.42929292929293 38.4272L 250 34.800266666666666L 250 40M 250 34.800266666666666z"
-                                                    pathFrom="M -1 40L -1 40L 19.57070707070707 40L 58.08080808080808 40L 96.5909090909091 40L 116.16161616161617 40L 135.73232323232324 40L 153.4090909090909 40L 172.97979797979798 40L 191.91919191919192 40L 211.489898989899 40L 230.42929292929293 40L 250 40">
-                                                </path>
-                                                <path id="SvgjsPath1744"
-                                                    d="M 0 39.00586666666667L 19.57070707070707 37.91146666666667L 58.08080808080808 38.88613333333333L 96.5909090909091 37.84106666666667L 116.16161616161617 39.9344L 135.73232323232324 39.8672L 153.4090909090909 38.944L 172.97979797979798 36.576L 191.91919191919192 34.940533333333335L 211.489898989899 39.9344L 230.42929292929293 38.4272L 250 34.800266666666666"
-                                                    fill="none" fill-opacity="1" stroke="#999999" stroke-opacity="1"
-                                                    stroke-linecap="butt" stroke-width="3" stroke-dasharray="3"
-                                                    class="apexcharts-area" index="1"
-                                                    clip-path="url(#gridRectMask2hsbjcla)"
-                                                    pathTo="M 0 39.00586666666667L 19.57070707070707 37.91146666666667L 58.08080808080808 38.88613333333333L 96.5909090909091 37.84106666666667L 116.16161616161617 39.9344L 135.73232323232324 39.8672L 153.4090909090909 38.944L 172.97979797979798 36.576L 191.91919191919192 34.940533333333335L 211.489898989899 39.9344L 230.42929292929293 38.4272L 250 34.800266666666666"
-                                                    pathFrom="M -1 40L -1 40L 19.57070707070707 40L 58.08080808080808 40L 96.5909090909091 40L 116.16161616161617 40L 135.73232323232324 40L 153.4090909090909 40L 172.97979797979798 40L 191.91919191919192 40L 211.489898989899 40L 230.42929292929293 40L 250 40">
-                                                </path>
-                                                <g id="SvgjsG1741" class="apexcharts-series-markers-wrap"
-                                                    data:realIndex="1">
-                                                    <g class="apexcharts-series-markers">
-                                                        <circle id="SvgjsCircle1774" r="0" cx="0" cy="0"
-                                                            class="apexcharts-marker wia5m4rh7" stroke="#ffffff"
-                                                            fill="#206bc4" fill-opacity="1" stroke-width="2"
-                                                            stroke-opacity="0.9" default-marker-size="0"></circle>
-                                                    </g>
-                                                </g>
-                                            </g>
-                                        </g>
-                                        <g id="SvgjsG1745" class="apexcharts-line-series apexcharts-plot-series">
-                                            <g id="SvgjsG1746" class="apexcharts-series" seriesName="GrossxValue"
-                                                data:longestSeries="true" rel="1" data:realIndex="0">
-                                                <path id="SvgjsPath1749"
-                                                    d="M 0 34.666666666666664L 19.57070707070707 28.266666666666666L 58.08080808080808 33.804L 96.5909090909091 28.266666666666666L 116.16161616161617 39.626666666666665L 135.73232323232324 39.2L 153.4090909090909 34.13333333333333L 172.97979797979798 15.217600000000001L 191.91919191919192 7.25333333333333L 211.489898989899 39.626666666666665L 230.42929292929293 30.607466666666667L 250 8.3736"
-                                                    fill="none" fill-opacity="1" stroke="rgba(32,107,196,0.85)"
-                                                    stroke-opacity="1" stroke-linecap="butt" stroke-width="3"
-                                                    stroke-dasharray="0" class="apexcharts-line" index="0"
-                                                    clip-path="url(#gridRectMask2hsbjcla)"
-                                                    pathTo="M 0 34.666666666666664L 19.57070707070707 28.266666666666666L 58.08080808080808 33.804L 96.5909090909091 28.266666666666666L 116.16161616161617 39.626666666666665L 135.73232323232324 39.2L 153.4090909090909 34.13333333333333L 172.97979797979798 15.217600000000001L 191.91919191919192 7.25333333333333L 211.489898989899 39.626666666666665L 230.42929292929293 30.607466666666667L 250 8.3736"
-                                                    pathFrom="M -1 40L -1 40L 19.57070707070707 40L 58.08080808080808 40L 96.5909090909091 40L 116.16161616161617 40L 135.73232323232324 40L 153.4090909090909 40L 172.97979797979798 40L 191.91919191919192 40L 211.489898989899 40L 230.42929292929293 40L 250 40">
-                                                </path>
-                                                <g id="SvgjsG1747" class="apexcharts-series-markers-wrap"
-                                                    data:realIndex="0">
-                                                    <g class="apexcharts-series-markers">
-                                                        <circle id="SvgjsCircle1775" r="0" cx="0" cy="0"
-                                                            class="apexcharts-marker wt5jrifzj" stroke="#ffffff"
-                                                            fill="#206bc4" fill-opacity="1" stroke-width="2"
-                                                            stroke-opacity="0.9" default-marker-size="0"></circle>
-                                                    </g>
-                                                </g>
-                                            </g>
-                                            <g id="SvgjsG1742" class="apexcharts-datalabels" data:realIndex="1"></g>
-                                            <g id="SvgjsG1748" class="apexcharts-datalabels" data:realIndex="0"></g>
-                                        </g>
-                                        <line id="SvgjsLine1769" x1="0" y1="0" x2="250" y2="0" stroke="#b6b6b6"
-                                            stroke-dasharray="0" stroke-width="1" class="apexcharts-ycrosshairs"></line>
-                                        <line id="SvgjsLine1770" x1="0" y1="0" x2="250" y2="0" stroke-dasharray="0"
-                                            stroke-width="0" class="apexcharts-ycrosshairs-hidden"></line>
-                                        <g id="SvgjsG1771" class="apexcharts-yaxis-annotations"></g>
-                                        <g id="SvgjsG1772" class="apexcharts-xaxis-annotations"></g>
-                                        <g id="SvgjsG1773" class="apexcharts-point-annotations"></g>
-                                    </g>
-                                    <rect id="SvgjsRect1721" width="0" height="0" x="0" y="0" rx="0" ry="0" opacity="1"
-                                        stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fefefe"></rect>
-                                    <g id="SvgjsG1757" class="apexcharts-yaxis" rel="0" transform="translate(-18, 0)">
-                                    </g>
-                                    <g id="SvgjsG1718" class="apexcharts-annotations"></g>
-                                </svg>
-                                <div class="apexcharts-legend" style="max-height: 20px;"></div>
-                                <div class="apexcharts-tooltip apexcharts-theme-light">
-                                    <div class="apexcharts-tooltip-title"
-                                        style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"></div>
-                                    <div class="apexcharts-tooltip-series-group" style="order: 1;"><span
-                                            class="apexcharts-tooltip-marker"
-                                            style="background-color: rgb(32, 107, 196);"></span>
-                                        <div class="apexcharts-tooltip-text"
-                                            style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;">
-                                            <div class="apexcharts-tooltip-y-group"><span
-                                                    class="apexcharts-tooltip-text-y-label"></span><span
-                                                    class="apexcharts-tooltip-text-y-value"></span></div>
-                                            <div class="apexcharts-tooltip-goals-group"><span
-                                                    class="apexcharts-tooltip-text-goals-label"></span><span
-                                                    class="apexcharts-tooltip-text-goals-value"></span></div>
-                                            <div class="apexcharts-tooltip-z-group"><span
-                                                    class="apexcharts-tooltip-text-z-label"></span><span
-                                                    class="apexcharts-tooltip-text-z-value"></span></div>
-                                        </div>
-                                    </div>
-                                    <div class="apexcharts-tooltip-series-group" style="order: 2;"><span
-                                            class="apexcharts-tooltip-marker"
-                                            style="background-color: rgb(32, 107, 196);"></span>
-                                        <div class="apexcharts-tooltip-text"
-                                            style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;">
-                                            <div class="apexcharts-tooltip-y-group"><span
-                                                    class="apexcharts-tooltip-text-y-label"></span><span
-                                                    class="apexcharts-tooltip-text-y-value"></span></div>
-                                            <div class="apexcharts-tooltip-goals-group"><span
-                                                    class="apexcharts-tooltip-text-goals-label"></span><span
-                                                    class="apexcharts-tooltip-text-goals-value"></span></div>
-                                            <div class="apexcharts-tooltip-z-group"><span
-                                                    class="apexcharts-tooltip-text-z-label"></span><span
-                                                    class="apexcharts-tooltip-text-z-value"></span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    class="apexcharts-yaxistooltip apexcharts-yaxistooltip-0 apexcharts-yaxistooltip-left apexcharts-theme-light">
-                                    <div class="apexcharts-yaxistooltip-text"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--!-->
-                        <!--!-->
-                        <!--!-->
-                        <!--!-->
-
-                        <!--!-->
-                        <div class="resize-triggers">
-                            <div class="expand-trigger">
-                                <div style="width: 251px; height: 41px;"></div>
-                            </div>
-                            <div class="contract-trigger"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- <RadzenCard Class="w-100 mb-4" >
+<!-- <RadzenCard Class="w-100 mb-4" >
                     <RadzenCheckBox @bind-Value="showDataLabels" Name="dataLabels"></RadzenCheckBox>
                     <RadzenLabel Text="Show Data Labels" For="dataLabels" Style="margin-left: 8px; vertical-align: middle;" />
                 </RadzenCard>
@@ -1262,8 +1054,7 @@
                         <RadzenSeriesDataLabels Visible="@showDataLabels" />
                     </RadzenPieSeries>
                 </RadzenChart> -->
-    </div>
-</div>
+<!-- </div> -->
 
 
 @code{
@@ -1271,10 +1062,138 @@ private async Task GeneratColumnChart(){
 await JS.InvokeVoidAsync("CreateColumnChart");
 }
 private async Task GeneratColumnHighChart(){
-await JS.InvokeVoidAsync("CreateColumnHighChart");
+<!-- await JS.InvokeVoidAsync("CreateColumnHighChart"); -->
 await JS.InvokeVoidAsync("CreateColumnHighChart_rain_level");
 }
-string text = "ไม่มีพายุ";
-}
 
-<!-- <SurveyPrompt Title="How is Blazor working for you?" /> -->
+public class ChartSubData {
+public string name {get; set;}
+public double y {get; set;}
+}
+public class ChartData {
+public string brand {get; set;}
+public bool colorByPoint {get; set;}
+public List<ChartSubData> data {get; set;}
+    }
+    private async Task GeneratRainLevelHighChart(){
+
+    private List<ChartSubData> data = new List<ChartSubData>{
+            new ChartSubData{
+            name: 'Chrome',
+            y: 70.67,
+            },
+
+            new ChartSubData{
+            name: 'water_level_measurement_station_total_no_data',
+            y: water_level_measurement_station_total_no_data
+            },
+            new ChartSubData{
+            name: 'Firefox',
+            y: 4.86
+            },
+
+            new ChartSubData{
+            name: 'Safari',
+            y: 2.63
+            },
+            new ChartSubData{
+            name: 'Internet Explorer',
+            y: 1.53
+            },
+            new ChartSubData{
+            name: 'Other',
+            y: 2.6
+            }
+            };
+            private List<ChartData> list = new List<ChartData>{
+                    new ChartData{
+                    name: 'Brands',
+                    colorByPoint: true,
+                    data : data
+                    }
+                    }
+                    
+                    console.log(list);
+                    await JS.InvokeVoidAsync("CreateRainLevel_Highchart",list);
+                    }
+                    private string storm_status = "ไม่มีพายุ";
+                    private double dam_use = 132.00;
+                    private double dam_storage = 300.00;
+                    private double dam_use_percentage = 0;
+                    private string _dateString = "";
+
+                    <!-- Water Level measurement Section -->
+                    private int water_level_measurement_station_total = 31;
+                    private int water_level_measurement_station_total_critical_over = 0;
+                    private int water_level_measurement_station_total_over = 0;
+                    private int water_level_measurement_station_total_fair = 0;
+                    private int water_level_measurement_station_total_under = 0;
+                    private int water_level_measurement_station_total_critical_under = 0;
+                    private int water_level_measurement_station_total_no_data = 31;
+                    <!-- End Water Level measurement Section -->
+
+                    <!-- Rain Level measurement Section -->
+                    private int rain_level_measurement_station_total = 64;
+                    private int rain_level_measurement_station_total_critical_over = 0;
+                    private int rain_level_measurement_station_total_over = 0;
+                    private int rain_level_measurement_station_total_fair = 0;
+                    private int rain_level_measurement_station_total_under = 0;
+                    private int rain_level_measurement_station_total_no_rain = 64;
+                    <!-- End Rain Level measurement Section -->
+
+                    protected void Get_storm_status()
+                    {
+                    storm_status = "ไม่มีพายุ";
+                    }
+                    protected void Get_DamUsePercentage()
+                    {
+                    dam_use_percentage = (dam_use/dam_storage)*100;
+                    }
+
+                    protected void Get_water_level_measurement_station_total()
+                    {
+                    water_level_measurement_station_total = 31;
+                    }
+
+                    protected void Get_water_level_measurement()
+                    {
+                    water_level_measurement_station_total_critical_over = 1;
+                    water_level_measurement_station_total_over = 6;
+                    water_level_measurement_station_total_fair = 1;
+                    water_level_measurement_station_total_under = 0;
+                    water_level_measurement_station_total_critical_under = 0;
+                    water_level_measurement_station_total_no_data = 23;
+                    }
+
+                    protected void Get_rain_level_measurement()
+                    {
+                    rain_level_measurement_station_total_critical_over = 0;
+                    rain_level_measurement_station_total_over = 2;
+                    rain_level_measurement_station_total_fair = 11;
+                    rain_level_measurement_station_total_under = 19;
+                    rain_level_measurement_station_total_no_rain = 31;
+                    }
+
+                    protected override async Task OnInitializedAsync()
+                    {
+                    <!-- SomeStartupMethod();
+    await SomeStartupTask(); -->
+                    <!-- await GeneratColumnHighChart(); -->
+
+                    Get_storm_status();
+                    Get_DamUsePercentage();
+                    Get_water_level_measurement();
+                    Get_rain_level_measurement();
+                    _dateString = DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+
+                    }
+                    protected override async Task OnAfterRenderAsync(bool firstRender)
+                    {
+                    <!-- if (firstRender)
+    { -->
+                    <!-- await GeneratRainLevelHighChart(); -->
+                    <!-- } -->
+                    }
+
+                    }

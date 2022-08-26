@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-<PageTitle>apis_app</PageTitle>
+<PageTitle>ศูนย์ข้อมูลน้ำระดับจังหวัด</PageTitle>
 
 <div class="page">
     <div class="sidebar">
@@ -25,7 +25,7 @@
                             <div class="align-self-center">
                                 <div role="presentation" class="bg-primary text-white py-1 px-4 text-center badge-pill"
                                     style="cursor: text;"><u title=""
-                                        style="text-decoration-color: rgba(131, 176, 215, 0);">จังหวัดเพชรบูรณ์&nbsp;</u>
+                                        style="text-decoration-color: rgba(131, 176, 215, 0);">@province_name&nbsp;</u>
                                 </div>
                             </div>
                         </div>
@@ -56,48 +56,49 @@
                 &nbsp;
                 <div class="mr-2"><small>ฝนสูงสุดวานนี้</small>
                     <h4 class="m-0 text-primary">
-                        <div title="">31</div>
+                        <div title="">@rain_level_2daysago_max</div>
                     </h4><small>(มม.)</small>
                 </div>
                 <div class="mr-2"><small>ฝนสะสม 3 วัน</small>
                     <h4 class="m-0 text-primary">
-                        <div title="">72.2</div>
+                        <div title="">@rain_level_3daysago_avg</div>
                     </h4><small>(มม.)</small>
                 </div>
                 <div class="mr-2"><small>ฝนสะสม 7 วัน</small>
                     <h4 class="m-0 text-primary">
-                        <div title="">298.8</div>
+                        <div title="">@rain_level_7daysago_avg</div>
                     </h4><small>(มม.)</small>
                 </div>
                 <div class="mr-2"><small>อุณหภูมิในรอบสัปดาห์</small>
                     <div class="row">
                         <div class="col">
-                            <h4 class="m-0 text-primary degree-celsius">41</h4>
+                            <h4 class="m-0 text-primary degree-celsius">@max_temp_of_week</h4>
                             <small>สูงสุด<i class='fas fa-caret-up' style='font-size:14px;color:green'></i></small>
                         </div>
                         <div class="col">
-                            <h4 class="m-0 text-primary degree-celsius">23</h4>
+                            <h4 class="m-0 text-primary degree-celsius">@min_temp_of_week</h4>
                             <small>ต่ำสุด<i class='fas fa-caret-down' style='font-size:14px;color:red'></i></small>
                         </div>
                     </div>
                 </div>
                 <div class="mr-2"><small>ปริมาณน้ำใช้การรวมของ<br> เขื่อน วันนี้ปีที่ผ่านมา</small>
-                    <h4 class="m-0 text-primary">55<small> (25%)</small></h4>
+                    <h4 class="m-0 text-primary">@volumn_of_water_usage<small>
+                            (@volumn_of_water_usage_percentage%)</small></h4>
                 </div>
                 <div class="DisasterArea"><small>พื้นที่เกิดสาธารณภัย</small>
                     <table class="table table-sm table-borderless small mb-0">
                         <tbody>
                             <tr>
                                 <td>อุทกภัย</td>
-                                <td><span class="badge badge-secondary text-primary w-100">
-                                        <div>0</div>
+                                <td><span class="badge badge-secondary">
+                                        <div>@number_of_flood_district</div>
                                     </span></td>
                                 <td>อำเภอ</td>
                             </tr>
                             <tr>
                                 <td>ภัยแล้ง</td>
-                                <td><span class="badge badge-secondary text-primary w-100">
-                                        <div>0</div>
+                                <td><span class="badge badge-secondary">
+                                        <div>@number_of_drought_district</div>
                                     </span></td>
                                 <td>อำเภอ</td>
                             </tr>
@@ -113,3 +114,77 @@
         </article>
     </main>
 </div>
+
+@code{
+
+private double rain_level_2daysago_max = 0;
+private double rain_level_3daysago_avg = 0;
+private double rain_level_7daysago_avg = 0;
+private double max_temp_of_week = 0;
+private double min_temp_of_week = 0;
+private double volumn_of_water_usage = 0;
+private double volumn_of_water_usage_percentage = 0;
+private int number_of_flood_district = 0;
+private int number_of_drought_district = 0;
+private string province_name = "จังหวัดเพชรบูรณ์";
+
+
+
+
+protected void Get_rain_level_2daysago_max()
+{
+rain_level_2daysago_max = 31.0;
+}
+protected void Get_rain_level_3daysago_avg()
+{
+rain_level_3daysago_avg = 75.5;
+}
+protected void Get_rain_level_7daysago_avg()
+{
+rain_level_7daysago_avg = 300.5;
+}
+protected void Get_max_temp_of_week()
+{
+max_temp_of_week = 41.5;
+}
+protected void Get_min_temp_of_week()
+{
+min_temp_of_week = 23.0;
+}
+protected void Get_volumn_of_usage_water()
+{
+volumn_of_water_usage = 55;
+}
+protected void Get_volumn_of_usage_water_percentage()
+{
+volumn_of_water_usage_percentage = 55 /0.25;
+}
+protected void Get_number_of_flood_district()
+{
+number_of_flood_district = 55;
+}
+protected void Get_number_of_drought_district()
+{
+number_of_drought_district = 1;
+}
+protected void Get_province_name()
+{
+province_name = "จังหวัดกรุงเทพมหานคร";
+}
+
+protected override void OnInitialized()
+{
+<!-- SomeStartupMethod();
+        await SomeStartupTask(); -->
+        Get_province_name();
+Get_rain_level_2daysago_max();
+Get_rain_level_3daysago_avg();
+Get_rain_level_7daysago_avg();
+Get_max_temp_of_week();
+Get_min_temp_of_week();
+Get_volumn_of_usage_water();
+Get_volumn_of_usage_water_percentage();
+Get_number_of_flood_district();
+Get_number_of_drought_district();
+}
+}
