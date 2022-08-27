@@ -28,3 +28,4 @@
 /Users/fe/Desktop/apis_app/bin/Debug/net6.0/Radzen.Blazor.dll
 /Users/fe/Desktop/apis_app/bin/Debug/net6.0/System.Linq.Dynamic.Core.dll
 /Users/fe/Desktop/apis_app/obj/Debug/net6.0/apis_app.csproj.CopyComplete
+/Users/fe/Desktop/apis_app/bin/Debug/net6.0/Newtonsoft.Json.dll

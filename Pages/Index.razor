@@ -1,12 +1,15 @@
 ﻿@page "/"
 @inject IJSRuntime JS
+@inject IHttpClientFactory ClientFactory
 @using System.Globalization
-<!-- @using BlazorApp5.Components -->
+@using System.Text.Json
+@using System.Text
+<!-- @using System.Text.Json -->
+<!-- @using Newtonsoft.Json; -->
+@inject HttpClient HttpClient
 
 
 <PageTitle>ศูนย์ข้อมูลน้ำระดับจังหวัด</PageTitle>
-
-<!-- <h1>ศูนย์ข้อมูลระดับน้ำจังหวัด</h1> -->
 
 <!-- <button @onclick= "GeneratColumnChart" class= "btn btn-info">Show Column amChart</button>
 <div id="chartdiv"></div> -->
@@ -862,7 +865,7 @@
                                 <table class="table RainfallTable mb-0">
                                     <tbody>
                                         <tr>
-                                            <td><img src="images/icons/raining/raining-5.png" alt=""></td>
+                                            <td><img src="Image/logo/icons/raining/raining-5.png" alt=""></td>
                                             <td>ฝนตกหนักมาก</td>
                                             <td>
                                                 <div class="badge text-white" style="background: rgb(218, 53, 46);">
@@ -872,7 +875,7 @@
                                             <td>สถานี</td>
                                         </tr>
                                         <tr>
-                                            <td><img src="images/icons/raining/raining-4.png" alt=""></td>
+                                            <td><img src="Image/logo/icons/raining/raining-4.png" alt=""></td>
                                             <td>ฝนตกหนัก</td>
                                             <td>
                                                 <div class="badge text-white" style="background: rgb(254, 138, 4);">
@@ -882,7 +885,7 @@
                                             <td>สถานี</td>
                                         </tr>
                                         <tr>
-                                            <td><img src="images/icons/raining/raining-3.png" alt=""></td>
+                                            <td><img src="Image/logo/icons/raining/raining-3.png" alt=""></td>
                                             <td>ฝนตกปานกลาง</td>
                                             <td>
                                                 <div class="badge text-white" style="background: rgb(156, 238, 178);">
@@ -892,7 +895,7 @@
                                             <td>สถานี</td>
                                         </tr>
                                         <tr>
-                                            <td><img src="images/icons/raining/raining-2.png" alt=""></td>
+                                            <td><img src="Image/logo/icons/raining/raining-2.png" alt=""></td>
                                             <td>ฝนตกเล็กน้อย</td>
                                             <td>
                                                 <div class="badge text-white" style="background: rgb(185, 218, 251);">
@@ -902,7 +905,7 @@
                                             <td>สถานี</td>
                                         </tr>
                                         <tr>
-                                            <td><img src="images/icons/raining/no-information-icon.png" alt=""></td>
+                                            <td><img src="Image/logo/icons/raining/no-information-icon.png" alt=""></td>
                                             <td>ไม่มีฝน</td>
                                             <td>
                                                 <div class="badge badge-secondary"
@@ -1030,33 +1033,6 @@
     </div>
 </div>
 
-<!-- <div class="col-xl-auto my-2">
-    <div class="card WaterDamCard">
-        <div class="card-body text-center">
-            <div class="d-flex flex-column">
-                <RadzenCard class="m-3">
-                    <h3 class="h5">ทดสอบ</h3>
-                    <figure class="highcharts-figure">
-                        <div id="container"></div>
-                    </figure>
-                </RadzenCard>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<!-- <RadzenCard Class="w-100 mb-4" >
-                    <RadzenCheckBox @bind-Value="showDataLabels" Name="dataLabels"></RadzenCheckBox>
-                    <RadzenLabel Text="Show Data Labels" For="dataLabels" Style="margin-left: 8px; vertical-align: middle;" />
-                </RadzenCard>
-                <RadzenChart >
-                    <RadzenPieSeries Data="revenue" Title="Revenue" CategoryProperty="Quarter" ValueProperty="Revenue">
-                        <RadzenSeriesDataLabels Visible="@showDataLabels" />
-                    </RadzenPieSeries>
-                </RadzenChart> -->
-<!-- </div> -->
-
-
 @code{
 private async Task GeneratColumnChart(){
 await JS.InvokeVoidAsync("CreateColumnChart");
@@ -1067,133 +1043,129 @@ await JS.InvokeVoidAsync("CreateColumnHighChart_rain_level");
 }
 
 public class ChartSubData {
-public string name {get; set;}
-public double y {get; set;}
+    public string name {get; set;}
+    public double y {get; set;}
 }
 public class ChartData {
-public string brand {get; set;}
-public bool colorByPoint {get; set;}
-public List<ChartSubData> data {get; set;}
-    }
-    private async Task GeneratRainLevelHighChart(){
+    public ChartSubData data {get; set;}
+    public string name {get; set;}
+    public double y {get; set;}
+}
 
-    private List<ChartSubData> data = new List<ChartSubData>{
-            new ChartSubData{
-            name: 'Chrome',
-            y: 70.67,
-            },
+<!-- Request Model -->
+public class CheckMemberRequest
+{
+    public string keyword { get; set; }
+}
+<!-- Response Model -->
+public class CheckMemberResponse
+{
+    public string statusCode { get; set; }
+    public string statusDescription { get; set; }
+}
 
-            new ChartSubData{
-            name: 'water_level_measurement_station_total_no_data',
-            y: water_level_measurement_station_total_no_data
-            },
-            new ChartSubData{
-            name: 'Firefox',
-            y: 4.86
-            },
+private async Task GeneratRainLevelHighChart(){
+    Console.WriteLine("GeneratRainLevelHighChart");
+}
+        
+<!-- Method for request API service via POST request and response as object -->
+private async Task<object> post_request(string url , object postBody){
+    <!-- create request object -->
+    var request = new HttpRequestMessage(HttpMethod.Post, url);
 
-            new ChartSubData{
-            name: 'Safari',
-            y: 2.63
-            },
-            new ChartSubData{
-            name: 'Internet Explorer',
-            y: 1.53
-            },
-            new ChartSubData{
-            name: 'Other',
-            y: 2.6
+    <!-- Console.WriteLine(JsonSerializer.Serialize(postBody)); -->
+    request.Content = new StringContent(JsonSerializer.Serialize(postBody), Encoding.UTF8, "application/json");
+
+    <!-- add authorization header -->
+    <!-- request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "my-token"); -->
+
+    <!-- add custom http header -->
+    request.Headers.Add("appId", "test-000001");
+    request.Headers.Add("appSecret", "12345678900987654321");
+    request.Headers.Add("device-uuid", "B765CF34-47BC-4493-8B5B-E85184DC34B3");
+
+    <!-- send request -->
+    var response = await HttpClient.SendAsync(request);
+
+    <!-- convert response data to Article object -->
+    var article = await response.Content.ReadFromJsonAsync<object>();
+    return article;
+}
+            
+private string storm_status = "ไม่มีพายุ";
+private double dam_use = 132.00;
+private double dam_storage = 300.00;
+private double dam_use_percentage = 0;
+private string _dateString = "";
+
+<!-- Water Level measurement Section -->
+private int water_level_measurement_station_total = 31;
+private int water_level_measurement_station_total_critical_over = 0;
+private int water_level_measurement_station_total_over = 0;
+private int water_level_measurement_station_total_fair = 0;
+private int water_level_measurement_station_total_under = 0;
+private int water_level_measurement_station_total_critical_under = 0;
+private int water_level_measurement_station_total_no_data = 31;
+<!-- End Water Level measurement Section -->
+
+<!-- Rain Level measurement Section -->
+private int rain_level_measurement_station_total = 64;
+private int rain_level_measurement_station_total_critical_over = 0;
+private int rain_level_measurement_station_total_over = 0;
+private int rain_level_measurement_station_total_fair = 0;
+private int rain_level_measurement_station_total_under = 0;
+private int rain_level_measurement_station_total_no_rain = 64;
+<!-- End Rain Level measurement Section -->
+
+            protected void Get_storm_status()
+            {
+            storm_status = "ไม่มีพายุ";
             }
-            };
-            private List<ChartData> list = new List<ChartData>{
-                    new ChartData{
-                    name: 'Brands',
-                    colorByPoint: true,
-                    data : data
-                    }
-                    }
-                    
-                    console.log(list);
-                    await JS.InvokeVoidAsync("CreateRainLevel_Highchart",list);
-                    }
-                    private string storm_status = "ไม่มีพายุ";
-                    private double dam_use = 132.00;
-                    private double dam_storage = 300.00;
-                    private double dam_use_percentage = 0;
-                    private string _dateString = "";
+            protected void Get_DamUsePercentage()
+            {
+            dam_use_percentage = (dam_use/dam_storage)*100;
+            }
 
-                    <!-- Water Level measurement Section -->
-                    private int water_level_measurement_station_total = 31;
-                    private int water_level_measurement_station_total_critical_over = 0;
-                    private int water_level_measurement_station_total_over = 0;
-                    private int water_level_measurement_station_total_fair = 0;
-                    private int water_level_measurement_station_total_under = 0;
-                    private int water_level_measurement_station_total_critical_under = 0;
-                    private int water_level_measurement_station_total_no_data = 31;
-                    <!-- End Water Level measurement Section -->
+            protected void Get_water_level_measurement_station_total()
+            {
+            water_level_measurement_station_total = 31;
+            }
 
-                    <!-- Rain Level measurement Section -->
-                    private int rain_level_measurement_station_total = 64;
-                    private int rain_level_measurement_station_total_critical_over = 0;
-                    private int rain_level_measurement_station_total_over = 0;
-                    private int rain_level_measurement_station_total_fair = 0;
-                    private int rain_level_measurement_station_total_under = 0;
-                    private int rain_level_measurement_station_total_no_rain = 64;
-                    <!-- End Rain Level measurement Section -->
+            protected void Get_water_level_measurement()
+            {
+            water_level_measurement_station_total_critical_over = 1;
+            water_level_measurement_station_total_over = 6;
+            water_level_measurement_station_total_fair = 1;
+            water_level_measurement_station_total_under = 0;
+            water_level_measurement_station_total_critical_under = 0;
+            water_level_measurement_station_total_no_data = 23;
+            }
 
-                    protected void Get_storm_status()
-                    {
-                    storm_status = "ไม่มีพายุ";
-                    }
-                    protected void Get_DamUsePercentage()
-                    {
-                    dam_use_percentage = (dam_use/dam_storage)*100;
-                    }
+            protected void Get_rain_level_measurement()
+            {
+            rain_level_measurement_station_total_critical_over = 0;
+            rain_level_measurement_station_total_over = 2;
+            rain_level_measurement_station_total_fair = 11;
+            rain_level_measurement_station_total_under = 19;
+            rain_level_measurement_station_total_no_rain = 31;
+            }
 
-                    protected void Get_water_level_measurement_station_total()
-                    {
-                    water_level_measurement_station_total = 31;
-                    }
+    protected override async Task OnInitializedAsync()
+    {
+        Get_storm_status();
+        Get_DamUsePercentage();
+        Get_water_level_measurement();
+        Get_rain_level_measurement();
+        _dateString = DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+        var request_obj = new CheckMemberRequest{ keyword = "0610500807" };
+        var url = "https://test.roastest.rabbit.co.th/auth/check-user";
+        var response = (await post_request(url, request_obj));
+        <!-- Console.WriteLine(response); -->
+        var test = JsonSerializer.Serialize(response);
+        <!-- Console.WriteLine(test); -->
+        var test2 = System.Text.Json.JsonSerializer.Deserialize<CheckMemberResponse>(test);
+        Console.WriteLine(test2.statusCode);
+        Console.WriteLine(test2.statusDescription);
+    }
 
-                    protected void Get_water_level_measurement()
-                    {
-                    water_level_measurement_station_total_critical_over = 1;
-                    water_level_measurement_station_total_over = 6;
-                    water_level_measurement_station_total_fair = 1;
-                    water_level_measurement_station_total_under = 0;
-                    water_level_measurement_station_total_critical_under = 0;
-                    water_level_measurement_station_total_no_data = 23;
-                    }
-
-                    protected void Get_rain_level_measurement()
-                    {
-                    rain_level_measurement_station_total_critical_over = 0;
-                    rain_level_measurement_station_total_over = 2;
-                    rain_level_measurement_station_total_fair = 11;
-                    rain_level_measurement_station_total_under = 19;
-                    rain_level_measurement_station_total_no_rain = 31;
-                    }
-
-                    protected override async Task OnInitializedAsync()
-                    {
-                    <!-- SomeStartupMethod();
-    await SomeStartupTask(); -->
-                    <!-- await GeneratColumnHighChart(); -->
-
-                    Get_storm_status();
-                    Get_DamUsePercentage();
-                    Get_water_level_measurement();
-                    Get_rain_level_measurement();
-                    _dateString = DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-
-
-                    }
-                    protected override async Task OnAfterRenderAsync(bool firstRender)
-                    {
-                    <!-- if (firstRender)
-    { -->
-                    <!-- await GeneratRainLevelHighChart(); -->
-                    <!-- } -->
-                    }
-
-                    }
+}
