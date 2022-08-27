@@ -806,9 +806,9 @@
                                                 <div class="RainForecast rounded text-center pt-2"
                                                     style="background-color: rgb(105, 201, 2);">
                                                     <div class="icon"><img
-                                                            src="images/icons/raining-forecasting/lv_2.png"
+                                                            src="Image/logo/icons/raining-forecasting/lv_1.png"
                                                             class="img-fluid" alt=""></div>
-                                                    <div><span style="color: rgb(0, 0, 0);">ฝนปานกลาง</span></div>
+                                                    <div><span style="color: rgb(0, 0, 0);">@raining_status_today</span></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -816,7 +816,7 @@
                                             <td class="text-right">พรุ่งนี้</td>
                                             <td>
                                                 <div class="badge w-100" style="background-color: rgb(173, 212, 255);">
-                                                    <span style="color: rgb(0, 0, 0);">ฝนเล็กน้อย</span>
+                                                    <span style="color: rgb(0, 0, 0);">@raining_status_tomorrow</span>
                                                 </div>
                                             </td>
                                         </tr>
@@ -824,7 +824,7 @@
                                             <td class="text-right">มะรืนนี้</td>
                                             <td>
                                                 <div class="badge w-100" style="background-color: rgb(105, 201, 2);">
-                                                    <span style="color: rgb(0, 0, 0);">ฝนปานกลาง</span>
+                                                    <span style="color: rgb(0, 0, 0);">@raining_status_next_2days</span>
                                                 </div>
                                             </td>
                                         </tr>
@@ -1033,6 +1033,22 @@
     </div>
 </div>
 
+<!-- @switch (itemIndex)
+{
+    case 0:
+        <img src="Image/logo/icons/raining-forecasting/lv_1.png" class="img-fluid" alt="">
+        break;
+    case 1:
+        <p>Do Item 2</p>
+        break;
+    case 2:
+        <p>Do Item 3</p>
+        break;
+    default:
+        <p>Do Nothing</p>
+        break;
+} -->
+
 @code{
 private async Task GeneratColumnChart(){
 await JS.InvokeVoidAsync("CreateColumnChart");
@@ -1093,8 +1109,8 @@ private async Task<object> post_request(string url , object postBody){
 }
             
 private string storm_status = "ไม่มีพายุ";
-private double dam_use = 132.00;
-private double dam_storage = 300.00;
+private double dam_use = 0;
+private double dam_storage = 0;
 private double dam_use_percentage = 0;
 private string _dateString = "";
 
@@ -1117,13 +1133,53 @@ private int rain_level_measurement_station_total_under = 0;
 private int rain_level_measurement_station_total_no_rain = 64;
 <!-- End Rain Level measurement Section -->
 
+<!-- Raining Forcasting Section -->
+private string raining_status_today_icon ="ฝนปานกลาง";
+private string raining_status_today ="ฝนปานกลาง";
+private string raining_status_tomorrow ="ฝนปานกลาง";
+private string raining_status_next_2days ="ฝนปานกลาง";
+
+protected void Get_raining_status()
+            {
+                int status = 1;
+                switch(status){
+                    case 0: {
+                        //raining_status_today_icon = <img src="Image/logo/icons/raining-forecasting/lv_1.png" class="img-fluid" alt="">;
+                        raining_status_today = "ฝนตกหนักมาก";
+                        raining_status_tomorrow = "ฝนปานกลาง";
+                        raining_status_next_2days = "ฝนตกน้อย";
+                    } break;
+                    case 1: {
+                        //raining_status_today_icon = <img src="Image/logo/icons/raining-forecasting/lv_1.png" class="img-fluid" alt="">;
+                        raining_status_today = "ฝนปานกลาง";
+                        raining_status_tomorrow = "ไม่มีข้อมูล";
+                        raining_status_next_2days = "ฝนตกน้อย";
+                    } break;
+                    case 2: {
+                        //raining_status_today_icon = <img src="Image/logo/icons/raining-forecasting/lv_1.png" class="img-fluid" alt="">;
+                        raining_status_today = "ฝนตกน้อย";
+                        raining_status_tomorrow = "ฝนตกน้อยมาก";
+                        raining_status_next_2days = "ฝนตกน้อย";
+                    } break;
+                    case 3: {
+                        //raining_status_today_icon = <img src="Image/logo/icons/raining-forecasting/lv_1.png" class="img-fluid" alt="">;
+                        raining_status_today = "ฝนตกน้อยมาก";
+                        raining_status_tomorrow = "ไม่มีข้อมูล";
+                        raining_status_next_2days = "ฝนตกน้อย";
+                    } break;
+                }
+            <!-- storm_status = "ไม่มีพายุ"; -->
+            }
+
             protected void Get_storm_status()
             {
             storm_status = "ไม่มีพายุ";
             }
             protected void Get_DamUsePercentage()
             {
-            dam_use_percentage = (dam_use/dam_storage)*100;
+                dam_use = 132.00;
+                dam_storage = 300.00;
+                dam_use_percentage = (dam_use/dam_storage)*100;
             }
 
             protected void Get_water_level_measurement_station_total()
@@ -1152,6 +1208,7 @@ private int rain_level_measurement_station_total_no_rain = 64;
 
     protected override async Task OnInitializedAsync()
     {
+        Get_raining_status();
         Get_storm_status();
         Get_DamUsePercentage();
         Get_water_level_measurement();
