@@ -1,70 +1,55 @@
-function CreateRainLevel_Highchart(data) {
-    // Data retrieved from https://netmarketshare.com
-    console.log(data);
-    Highcharts.chart('rain_level', {
+function CreateWaterStation_Highchart(data) {
+    Highcharts.chart('water_station_chart', {
         chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: 'Browser market shares in May, 2020'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
+            type: 'pie',
+            options3d: {
+                enabled: false,
+                alpha: 45
             }
         },
+        title: {
+            text: data.name
+        },
+        // subtitle: {
+        //     text: '3D donut in Highcharts'
+        // },
         plotOptions: {
             pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                }
+                innerSize: 100,
+                depth: 45
             }
         },
         series: [{
-            name: 'Brands',
-            colorByPoint: true,
-            data: [{
-                name: 'Chrome',
-                y: 70.67,
-                sliced: true,
-                selected: true
-            }, {
-                name: 'Edge',
-                y: 14.77
-            }, {
-                name: 'Firefox',
-                y: 4.86
-            }, {
-                name: 'Safari',
-                y: 2.63
-            }, {
-                name: 'Internet Explorer',
-                y: 1.53
-            }, {
-                name: 'Opera',
-                y: 1.40
-            }, {
-                name: 'Sogou Explorer',
-                y: 0.84
-            }, {
-                name: 'QQ',
-                y: 0.51
-            }, {
-                name: 'Other',
-                y: 2.6
-            }]
+            name: data.name,
+            data: data.data
         }]
     });
+}
 
-
-
+function CreateRainLevel_Highchart(data) {
+    Highcharts.chart('rain_level_chart', {
+        chart: {
+            type: 'pie',
+            options3d: {
+                enabled: false,
+                alpha: 45
+            }
+        },
+        title: {
+            text: data.name
+        },
+        // subtitle: {
+        //     text: '3D donut in Highcharts'
+        // },
+        plotOptions: {
+            pie: {
+                innerSize: 100,
+                depth: 45
+            }
+        },
+        series: [{
+            name: data.name,
+            data: data.data
+        }]
+    });
 }
