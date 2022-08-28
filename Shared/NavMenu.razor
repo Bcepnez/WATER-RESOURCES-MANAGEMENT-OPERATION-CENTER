@@ -1,6 +1,13 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿<div class="navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">ศูนย์ข้อมูลน้ำระดับจังหวัด</a>
+        <!-- <a class="navbar-brand" href="">ศูนย์ข้อมูลน้ำระดับจังหวัด</a> -->
+        <div>
+            <a href="/">
+                <img src="Image/logo/nav-bar-icon/logo-large.png" class="logo-large img-responsive padding-10" alt=""
+                    title="คลังข้อมูลน้ำแห่งชาติ" height=auto width=100%>
+            </a>
+        </div>
+
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -9,31 +16,149 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
-        <div class="nav-item px-3">
+        <!-- <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+                <img src="Image/logo/icons/raining/raining-5.png" alt="">Home
+            </NavLink>
+        </div> -->
+        <li class="menu-categorie menu-mft px-3"><a href="monitering-section.html" class="d-flex align-items-center">
+                <hr class="w-100"><span>Monitoring</span>
+            </a></li>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="radar">
+                <img src="Image/logo/nav-bar-icon/menu-cloud-radar.png" alt="ภาพเมฆและเรดาร์" title="ภาพเมฆและเรดาร์">
+                <span>ภาพเมฆและเรดาร์</span>
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+            <NavLink class="nav-link" href="rainfall">
+                <img src="Image/logo/nav-bar-icon/menu-raining-24.png" alt="ปริมาณฝน 24 ชม." title="ปริมาณฝน 24 ชม.">
+                <span>ปริมาณฝน 24 ชม.</span>
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            <NavLink class="nav-link" href="wl">
+                <img src="Image/logo/nav-bar-icon/menu-water-level.png" alt="ข้อมูลระดับน้ำ"
+                    title="ข้อมูลระดับน้ำ"><span>ระดับน้ำ</span>
             </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="dam">
+                <img src="Image/logo/nav-bar-icon/menu-dam.png" alt="ข้อมูลน้ำในเขื่อน"
+                    title="ข้อมูลน้ำในเขื่อน"><span>เขื่อน</span>
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="moisture">
+                <img src="Image/logo/nav-bar-icon/menu-moisture.png" alt="ข้อมูลความชื้น"
+                    title="ข้อมูลความชื้น"><span>ความชื้น</span>
+            </NavLink>
+        </div>
+
+        <li class="menu-categorie menu-mft px-3"><a href="/" class="d-flex align-items-center">
+                <hr class="w-100">
+                <div><span>Forecasting</span></div>
+            </a></li>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="storm">
+                <img src="Image/logo/nav-bar-icon/menu-storm.png" alt="เส้นทางพายุ"
+                    title="เส้นทางพายุ"><span>เส้นทางพายุ</span>
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/forecast/rainfall">
+                <img src="Image/logo/nav-bar-icon/menu-raining-forecasting.png" alt="คาดการณ์ฝน"
+                    title="คาดการณ์ฝน"><span>คาดการณ์ฝน</span>
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="flashflood">
+                <div class="menu-icon"><svg class="jss1" focusable="false" viewBox="1 8 31 15" aria-hidden="true"
+                        transform="translate(0 5)" style="fill: white;">
+                        <path
+                            d="M28.669 12.144l-4.444-4.444v-6.675h-2.962v3.706l-4.45-4.45-11.863 11.863v0.744h2.963v7.412h7.412v-4.444h2.962v4.444h7.413v-7.419h2.962v-0.738z">
+                        </path>
+                        <path
+                            d="M30.081 27.694c-1.094-1.175-2.775-1.613-4.3-1.119-0.669 0.238-1.275 0.631-1.769 1.144-1.038 1.144-2.813 1.225-3.95 0.188-0.063-0.056-0.125-0.119-0.188-0.188v-0.075c-1.1-1.175-2.781-1.613-4.319-1.119-0.662 0.244-1.269 0.637-1.756 1.144-1.037 1.144-2.813 1.225-3.95 0.188-0.063-0.056-0.125-0.119-0.188-0.188l-0.075-0.075c-1.1-1.175-2.781-1.613-4.319-1.119-0.688 0.25-1.313 0.656-1.819 1.188-0.344 0.456-0.381 1.075-0.087 1.563 0.181 0.344 0.6 0.475 0.944 0.294 0.081-0.044 0.156-0.106 0.219-0.175 1.044-1.137 2.813-1.212 3.956-0.169 0.056 0.056 0.113 0.113 0.169 0.169 0.494 0.512 1.1 0.906 1.769 1.144 1.531 0.5 3.219 0.063 4.319-1.119h0.075c1.044-1.137 2.812-1.212 3.956-0.169 0.056 0.056 0.113 0.113 0.169 0.169 0.494 0.512 1.1 0.906 1.769 1.144 0.4 0.144 0.813 0.219 1.238 0.225 1.156-0.044 2.256-0.525 3.081-1.337h0.075c1.044-1.15 2.825-1.238 3.975-0.194 0.069 0.063 0.131 0.125 0.194 0.194 0.288 0.256 0.731 0.238 0.988-0.050 0.063-0.069 0.113-0.156 0.144-0.244 0.181-0.481 0.063-1.038-0.319-1.413z">
+                        </path>
+                        <path
+                            d="M30.081 21.694c-1.1-1.169-2.775-1.6-4.3-1.119-0.669 0.238-1.275 0.631-1.769 1.144-1.038 1.144-2.813 1.225-3.95 0.188-0.063-0.056-0.125-0.119-0.188-0.188v-0.075c-1.106-1.169-2.781-1.6-4.319-1.119-0.662 0.244-1.269 0.637-1.756 1.144-1.037 1.144-2.813 1.225-3.95 0.188-0.063-0.056-0.125-0.119-0.188-0.188l-0.075-0.075c-1.106-1.169-2.781-1.6-4.319-1.119-0.694 0.25-1.313 0.669-1.819 1.206-0.319 0.438-0.356 1.019-0.087 1.488 0.163 0.344 0.575 0.481 0.912 0.319 0.1-0.044 0.181-0.113 0.25-0.2 1.044-1.137 2.813-1.212 3.956-0.169 0.056 0.056 0.113 0.113 0.169 0.169 0.456 0.556 1.037 1 1.694 1.294 1.531 0.5 3.219 0.063 4.319-1.119l0.075-0.075c1.044-1.137 2.813-1.212 3.956-0.169 0.056 0.056 0.113 0.113 0.169 0.169 0.494 0.506 1.1 0.894 1.769 1.131 0.394 0.15 0.813 0.225 1.238 0.225 1.163-0.038 2.262-0.519 3.081-1.337l0.075-0.075c1.063-1.131 2.844-1.188 3.975-0.125 0.069 0.063 0.131 0.131 0.194 0.2 0.288 0.256 0.731 0.238 0.988-0.050 0.063-0.069 0.113-0.156 0.144-0.244 0.206-0.469 0.113-1.025-0.244-1.419z">
+                        </path>
+                    </svg></div><span>ติดตามน้ำท่วมฉับพลัน</span>
+
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="forecast/wave">
+                <img src="Image/logo/nav-bar-icon/menu-wave-forecasting.png" alt="คาดการณ์คลื่น"
+                    title="คาดการณ์คลื่น"><span>คาดการณ์คลื่น</span>
+            </NavLink>
+        </div>
+        <li class="menu-categorie menu-mft px-3"><a href="javascript:void(0)" class="d-flex align-items-center">
+                <hr class="w-100">
+                <div><span>GIS</span></div>
+            </a></li>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="fullmap">
+                <img src="Image/logo/nav-bar-icon/gis.png" alt="" title="ระบบแผนที่">
+                <span>ระบบแผนที่</span>
+            </NavLink>
+        </div>
+        <li class="menu-categorie menu-mft px-3"><a href="javascript:void(0)" class="d-flex align-items-center">
+                <hr class="w-100">
+                <div><span>Statistics</span></div>
+            </a></li>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="http://tiservice.hii.or.th/WRMOC/web/V2/yRainProv_Anomaly.html">
+                <i class="icofont-chart-bar-graph"></i>
+                <span>ข้อมูลสถิติ</span>
+            </NavLink>
+        </div>
+        <div class="sidebar-footer d-none d-lg-block px-3 "  @onclick="ToggleNavMenu"><a href="javascript:void(0)">
+                <!-- <i class="icofont icofont-circled-right orange"></i> -->
+                <i class="icofont icofont-circled-left orange"></i>
+                <span class="orange">COLLAPSE MENU</span></a></div>
+        <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+        </div>
+        <div class="ps__rail-y" style="top: 0px; right: 0px; height: 50px;">
+            <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 50px;"></div>
         </div>
     </nav>
 </div>
 
+
+
+<!-- <div id="sidebar" class="active">
+    <div class="scrollbar-container ps ps--active-y">
+        <div class="float-right d-block d-xl-none"><button type="button"
+                class="btn btn-link sidebarCollapse display-7"><i
+                    class="icofont icofont-close-line text-secondary"></i></button></div>
+        <div class="sidebar-header"><a href="/"><img src="/images/logos/logo.png"
+                    class="logo-small img-responsive padding-5" alt="" title="คลังข้อมูลน้ำแห่งชาติ"></a><a
+                href="/"><img src="Image/logo/nav-bar-icon/logo-large.png" class="logo-large img-responsive padding-10"
+                    alt="" title="คลังข้อมูลน้ำแห่งชาติ"></a></div>
+       
+        <div class="sidebar-footer d-none d-lg-block "><a href="javascript:void(0)"><i
+                    class="icofont icofont-circled-right orange"></i><i
+                    class="icofont icofont-circled-left orange"></i><span class="orange">COLLAPSE MENU</span></a></div>
+        <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+        </div>
+        <div class="ps__rail-y" style="top: 0px; right: 0px; height: 731px;">
+            <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 639px;"></div>
+        </div>
+    </div>
+</div> -->
+
 @code {
-    private bool collapseNavMenu = true;
+private bool collapseNavMenu = true;
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
+private void ToggleNavMenu()
+{
+collapseNavMenu = !collapseNavMenu;
+Console.WriteLine(collapseNavMenu);
+}
 }

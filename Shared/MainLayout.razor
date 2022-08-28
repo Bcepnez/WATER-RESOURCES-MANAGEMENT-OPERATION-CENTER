@@ -1,4 +1,7 @@
 ﻿@inherits LayoutComponentBase
+@using System.Text.Json
+@using System.Text
+@inject HttpClient HttpClient
 
 <PageTitle>ศูนย์ข้อมูลน้ำระดับจังหวัด</PageTitle>
 
@@ -172,19 +175,74 @@ protected void Get_province_name()
 province_name = "จังหวัดกรุงเทพมหานคร";
 }
 
-protected override void OnInitialized()
+protected async Task post()
 {
-<!-- SomeStartupMethod();
+var request_obj = new CheckMemberRequest{ keyword = "0610500807" };
+var url = "https://test.roastest.rabbit.co.th/auth/check-user";
+var response = (await post_request(url, request_obj));
+Console.WriteLine(response);
+var test = JsonSerializer.Serialize(response);
+Console.WriteLine(test);
+var test2 = System.Text.Json.JsonSerializer.Deserialize<CheckMemberResponse>(test);
+    Console.WriteLine(test2.statusCode);
+    Console.WriteLine(test2.statusDescription);
+    province_name = test2.statusDescription;
+    }
+
+    <!-- overide function for set static value or run function on initialize -->
+    protected override void OnInitialized()
+    {
+    <!-- SomeStartupMethod();
         await SomeStartupTask(); -->
-        Get_province_name();
-Get_rain_level_2daysago_max();
-Get_rain_level_3daysago_avg();
-Get_rain_level_7daysago_avg();
-Get_max_temp_of_week();
-Get_min_temp_of_week();
-Get_volumn_of_usage_water();
-Get_volumn_of_usage_water_percentage();
-Get_number_of_flood_district();
-Get_number_of_drought_district();
-}
-}
+    Get_province_name();
+    Get_rain_level_2daysago_max();
+    Get_rain_level_3daysago_avg();
+    Get_rain_level_7daysago_avg();
+    Get_max_temp_of_week();
+    Get_min_temp_of_week();
+    Get_volumn_of_usage_water();
+    Get_volumn_of_usage_water_percentage();
+    Get_number_of_flood_district();
+    Get_number_of_drought_district();
+    }
+
+    <!-- overide function for use async function  on initialize -->
+    protected override async Task OnParametersSetAsync()
+    {
+    <!-- await post(); -->
+    }
+
+    private async Task<object> post_request(string url , object postBody){
+        <!-- create request object -->
+        var request = new HttpRequestMessage(HttpMethod.Post, url);
+
+        <!-- Console.WriteLine(JsonSerializer.Serialize(postBody)); -->
+        request.Content = new StringContent(JsonSerializer.Serialize(postBody), Encoding.UTF8, "application/json");
+
+        <!-- add authorization header -->
+        <!-- request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "my-token"); -->
+
+        <!-- add custom http header -->
+        request.Headers.Add("appId", "test-000001");
+        request.Headers.Add("appSecret", "12345678900987654321");
+        request.Headers.Add("device-uuid", "B765CF34-47BC-4493-8B5B-E85184DC34B3");
+
+        <!-- send request -->
+        var response = await HttpClient.SendAsync(request);
+
+        <!-- convert response data to Article object -->
+        var article = await response.Content.ReadFromJsonAsync<object>();
+            return article;
+            }
+            <!-- Request Model -->
+            public class CheckMemberRequest
+            {
+            public string keyword { get; set; }
+            }
+            <!-- Response Model -->
+            public class CheckMemberResponse
+            {
+            public string statusCode { get; set; }
+            public string statusDescription { get; set; }
+            }
+            }
