@@ -16,11 +16,12 @@ function CreateWaterStation_Highchart(data) {
         plotOptions: {
             pie: {
                 innerSize: 100,
-                depth: 45
+                depth: 45,
             }
         },
         series: [{
             name: data.name,
+            dataLabels: data.dataLabels,
             data: data.data
         }]
     });
@@ -44,11 +45,12 @@ function CreateRainLevel_Highchart(data) {
         plotOptions: {
             pie: {
                 innerSize: 100,
-                depth: 45
+                depth: 45,
             }
         },
         series: [{
             name: data.name,
+            dataLabels: data.dataLabels,
             data: data.data
         }]
     });

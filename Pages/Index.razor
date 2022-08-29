@@ -22,7 +22,7 @@
 
 <div id="dashboard">
     <div class="container">
-        <div class="row">
+        <div class="row grid-container ">
             <div class="col-xl-auto my-2">
                 <div class="card">
                     <div class="card-body text-center d-flex flex-column align-items-center">
@@ -1036,9 +1036,15 @@ public class ChartSubData {
 }
 public class ChartData {
     public string name {get; set;}
+    public DataLabel dataLabels {get; set;}
     public List<List<object>> data {get; set;}
     <!-- public double y {get; set;} -->
 }
+
+public class DataLabel {
+    public bool enabled {get; set;}
+}
+
 
 <!-- Request Model -->
 public class CheckMemberRequest
@@ -1083,10 +1089,14 @@ private async Task GeneratWaterStationHighChart(){
         x.Add(value[i]);
         res.Add(x);
     }
+    <!-- data label => TRUE = show label ; False = hide data label -->
+    var label = new DataLabel {enabled = true};
     var data = new ChartData{
         name = "สถานีวัดระดับน้ำ " + water_level_measurement_station_total+ " สถานี",
+        dataLabels = label,
         data = res
     };
+    Console.WriteLine(data);
     await JS.InvokeVoidAsync("CreateWaterStation_Highchart",data);
 }
 
@@ -1119,8 +1129,11 @@ private async Task GeneratRainLevelHighChart(){
         x.Add(value[i]);
         res.Add(x);
     }
+    <!-- data label => TRUE = show label ; False = hide data label -->
+    var label = new DataLabel{enabled = false};
     var data = new ChartData{
         name = "สถานีวัดปริมาณฝน " + rain_level_measurement_station_total+ " สถานี",
+        dataLabels = label,
         data = res
     };
     await JS.InvokeVoidAsync("CreateRainLevel_Highchart",data);
