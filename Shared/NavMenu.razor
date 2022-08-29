@@ -1,6 +1,7 @@
 ﻿<div class="navbar navbar-dark">
     <div class="container-fluid">
         <!-- <a class="navbar-brand" href="">ศูนย์ข้อมูลน้ำระดับจังหวัด</a> -->
+        <a class="closebtn" @onclick="closeNav">&times;</a>
         <div>
             <a href="/">
                 <img src="Image/logo/nav-bar-icon/logo-large.png" class="logo-large img-responsive padding-10" alt=""
@@ -114,7 +115,7 @@
                 <span>ข้อมูลสถิติ</span>
             </NavLink>
         </div>
-        <div class="sidebar-footer d-none d-lg-block px-3 "  @onclick="ToggleNavMenu"><a href="javascript:void(0)">
+        <div class="nav-item px-3"  @onclick="ToggleNavMenu"><a href="javascript:void(0)">
                 <!-- <i class="icofont icofont-circled-right orange"></i> -->
                 <i class="icofont icofont-circled-left orange"></i>
                 <span class="orange">COLLAPSE MENU</span></a></div>
@@ -161,4 +162,20 @@ private void ToggleNavMenu()
 collapseNavMenu = !collapseNavMenu;
 Console.WriteLine(collapseNavMenu);
 }
+
+private void openNav() {
+  <!-- document.getElementById("sidebar").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px"; -->
+}
+
+private void closeNav() {
+  <!-- document.getElementById("sidebar").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0"; -->
+}
+
+<!-- int width = 250;
+    string sidebarWidth => $"width: {width}px;";
+    string mainMargin => $"margin-left: {width}px;";
+    void OpenNav() => width = 250;
+    void CloseNav() => width = 0; -->
 }

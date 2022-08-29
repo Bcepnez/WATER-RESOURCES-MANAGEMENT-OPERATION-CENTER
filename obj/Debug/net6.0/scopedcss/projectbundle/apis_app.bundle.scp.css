@@ -91,6 +91,17 @@ main[b-s960ib7k4y] {
 .mt-2[b-s960ib7k4y], .my-2[b-s960ib7k4y] {
     margin-top: 0.5rem !important;
 }
+.mr-2[b-s960ib7k4y] {
+    margin-right: 0.1rem !important;
+}
+.ml-2[b-s960ib7k4y]{
+    margin-left: 0.1rem !important;
+}
+.col[b-s960ib7k4y] {
+    /* display: table-cell; Make elements inside the container behave like table cells */
+    display: block;
+    width: 100%;
+  }
 body[b-s960ib7k4y] {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";

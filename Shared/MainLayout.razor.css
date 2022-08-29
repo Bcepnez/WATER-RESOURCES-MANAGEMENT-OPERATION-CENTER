@@ -90,6 +90,17 @@ main {
 .mt-2, .my-2 {
     margin-top: 0.5rem !important;
 }
+.mr-2 {
+    margin-right: 0.1rem !important;
+}
+.ml-2{
+    margin-left: 0.1rem !important;
+}
+.col {
+    /* display: table-cell; Make elements inside the container behave like table cells */
+    display: block;
+    width: 100%;
+  }
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
