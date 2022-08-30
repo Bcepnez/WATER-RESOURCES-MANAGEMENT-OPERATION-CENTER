@@ -30,6 +30,10 @@ main {
     margin-bottom: 0 !important;
 }
 
+*, *::before, **::after{
+    box-sizing: border-box;
+}
+
 .card {
     position: relative;
     display: flex;

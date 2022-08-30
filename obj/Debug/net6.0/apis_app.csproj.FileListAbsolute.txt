@@ -29,3 +29,15 @@
 /Users/fe/Desktop/apis_app/bin/Debug/net6.0/System.Linq.Dynamic.Core.dll
 /Users/fe/Desktop/apis_app/obj/Debug/net6.0/apis_app.csproj.CopyComplete
 /Users/fe/Desktop/apis_app/bin/Debug/net6.0/Newtonsoft.Json.dll
+/Users/fe/Desktop/apis_app/bin/Debug/net6.0/Microsoft.AspNetCore.Authorization.dll
+/Users/fe/Desktop/apis_app/bin/Debug/net6.0/Microsoft.AspNetCore.Components.dll
+/Users/fe/Desktop/apis_app/bin/Debug/net6.0/Microsoft.AspNetCore.Components.Forms.dll
+/Users/fe/Desktop/apis_app/bin/Debug/net6.0/Microsoft.AspNetCore.Components.Web.dll
+/Users/fe/Desktop/apis_app/bin/Debug/net6.0/Microsoft.AspNetCore.Metadata.dll
+/Users/fe/Desktop/apis_app/bin/Debug/net6.0/Microsoft.Extensions.Logging.Abstractions.dll
+/Users/fe/Desktop/apis_app/bin/Debug/net6.0/Microsoft.JSInterop.dll
+/Users/fe/Desktop/apis_app/bin/Debug/net6.0/Syncfusion.Blazor.dll
+/Users/fe/Desktop/apis_app/bin/Debug/net6.0/Syncfusion.ExcelExport.Net.dll
+/Users/fe/Desktop/apis_app/bin/Debug/net6.0/Syncfusion.Licensing.dll
+/Users/fe/Desktop/apis_app/bin/Debug/net6.0/Syncfusion.PdfExport.Net.dll
+/Users/fe/Desktop/apis_app/bin/Debug/net6.0/System.IO.Pipelines.dll

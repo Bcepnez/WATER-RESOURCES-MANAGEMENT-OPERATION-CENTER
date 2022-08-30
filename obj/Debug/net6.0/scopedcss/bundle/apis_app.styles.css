@@ -31,6 +31,10 @@ main[b-s960ib7k4y] {
     margin-bottom: 0 !important;
 }
 
+*[b-s960ib7k4y], *[b-s960ib7k4y]::before, **[b-s960ib7k4y]::after{
+    box-sizing: border-box;
+}
+
 .card[b-s960ib7k4y] {
     position: relative;
     display: flex;

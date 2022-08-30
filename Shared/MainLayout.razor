@@ -6,9 +6,28 @@
 <PageTitle>ศูนย์ข้อมูลน้ำระดับจังหวัด</PageTitle>
 
 <div class="page">
-    <div class="sidebar"  >
-    
+    <div class="sidebar " style="@sidebarWidth">
+
         <NavMenu />
+        <div class="nav-item px-3">
+            <a href="javascript:void(0)" data-toggle="collapse" role="button" aria-expanded="false"
+                aria-controls="navbarcollapse">
+
+                @if (width <= 100) { 
+                    <i class="icofont icofont-circled-right orange" @onclick="OpenNav"></i>
+                } else {
+                    <i class="icofont icofont-circled-left orange" @onclick="CloseNav"></i>
+                    <span class="orange" @onclick="CloseNav">COLLAPSE MENU</span>
+                }
+            </a>
+        </div>
+
+        <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+        </div>
+        <div class="ps__rail-y" style="top: 0px; right: 0px; height: 50px;">
+            <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 50px;"></div>
+        </div>
     </div>
 
     <main>
@@ -132,6 +151,22 @@ private int number_of_flood_district = 0;
 private int number_of_drought_district = 0;
 private string province_name = "จังหวัดเพชรบูรณ์";
 
+private bool collapseNavMenu = false;
+
+private string? NavMenuCssClass => collapseNavMenu ? "collapse" : "collapse.show";
+
+private void ToggleNavMenu()
+{
+collapseNavMenu = !collapseNavMenu;
+Console.WriteLine("MainLayout "+collapseNavMenu);
+}
+
+int width = 0;
+string sidebarWidth => $"width: {width}px;";
+string mainMargin => $"margin-left: {width}px;";
+void OpenNav() => width = 250;
+void CloseNav() => width = 100;
+
 
 
 
@@ -224,9 +259,9 @@ var test2 = System.Text.Json.JsonSerializer.Deserialize<CheckMemberResponse>(tes
         <!-- request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "my-token"); -->
 
         <!-- add custom http header -->
-        request.Headers.Add("appId", "test-000001");
-        request.Headers.Add("appSecret", "12345678900987654321");
-        request.Headers.Add("device-uuid", "B765CF34-47BC-4493-8B5B-E85184DC34B3");
+        request.Headers.Add("appId", "test");
+        request.Headers.Add("appSecret", "12345");
+        request.Headers.Add("device-uuid", "B765CF34");
 
         <!-- send request -->
         var response = await HttpClient.SendAsync(request);
