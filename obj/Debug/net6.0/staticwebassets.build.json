@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "7R6yU7IYdNe0lpcXpQvWcewywWtn8BvqmsqOoANk4CY=",
+  "Hash": "S5UZjq+sjlQC7O9HRhS55uf5bi5FeMTEb8bZQ1uFbY0=",
   "Source": "apis_app",
   "BasePath": "_content/apis_app",
   "Mode": "Default",
@@ -3043,6 +3043,23 @@
       "OriginalItemSpec": "wwwroot/Image/logo/nav-bar-icon/menu-dam.png"
     },
     {
+      "Identity": "/Users/fe/Desktop/apis_app/wwwroot/Image/logo/nav-bar-icon/menu-flood.png",
+      "SourceId": "apis_app",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/fe/Desktop/apis_app/wwwroot/",
+      "BasePath": "_content/apis_app",
+      "RelativePath": "Image/logo/nav-bar-icon/menu-flood.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Image/logo/nav-bar-icon/menu-flood.png"
+    },
+    {
       "Identity": "/Users/fe/Desktop/apis_app/wwwroot/Image/logo/nav-bar-icon/menu-moisture.png",
       "SourceId": "apis_app",
       "SourceType": "Discovered",
@@ -3196,23 +3213,6 @@
       "OriginalItemSpec": "wwwroot/Image/logo/TH.png"
     },
     {
-      "Identity": "/Users/fe/Desktop/apis_app/wwwroot/js/Chart.js",
-      "SourceId": "apis_app",
-      "SourceType": "Discovered",
-      "ContentRoot": "/Users/fe/Desktop/apis_app/wwwroot/",
-      "BasePath": "_content/apis_app",
-      "RelativePath": "js/Chart.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/js/Chart.js"
-    },
-    {
       "Identity": "/Users/fe/Desktop/apis_app/wwwroot/js/HighChart_pie.js",
       "SourceId": "apis_app",
       "SourceType": "Discovered",
@@ -3228,40 +3228,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/HighChart_pie.js"
-    },
-    {
-      "Identity": "/Users/fe/Desktop/apis_app/wwwroot/js/HighChart_rain_level.js",
-      "SourceId": "apis_app",
-      "SourceType": "Discovered",
-      "ContentRoot": "/Users/fe/Desktop/apis_app/wwwroot/",
-      "BasePath": "_content/apis_app",
-      "RelativePath": "js/HighChart_rain_level.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/js/HighChart_rain_level.js"
-    },
-    {
-      "Identity": "/Users/fe/Desktop/apis_app/wwwroot/js/HighChart.js",
-      "SourceId": "apis_app",
-      "SourceType": "Discovered",
-      "ContentRoot": "/Users/fe/Desktop/apis_app/wwwroot/",
-      "BasePath": "_content/apis_app",
-      "RelativePath": "js/HighChart.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/js/HighChart.js"
     }
   ]
 }
