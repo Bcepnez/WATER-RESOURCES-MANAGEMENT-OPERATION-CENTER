@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "APqJdsVV5goGgxyWM7qJYoiiqHZfV85XsFXX2ITBwcs=",
+  "Hash": "7R6yU7IYdNe0lpcXpQvWcewywWtn8BvqmsqOoANk4CY=",
   "Source": "apis_app",
   "BasePath": "_content/apis_app",
   "Mode": "Default",
@@ -2990,6 +2990,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/Image/logo/nav-bar-icon/logo-large.png"
+    },
+    {
+      "Identity": "/Users/fe/Desktop/apis_app/wwwroot/Image/logo/nav-bar-icon/logo.png",
+      "SourceId": "apis_app",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/fe/Desktop/apis_app/wwwroot/",
+      "BasePath": "_content/apis_app",
+      "RelativePath": "Image/logo/nav-bar-icon/logo.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Image/logo/nav-bar-icon/logo.png"
     },
     {
       "Identity": "/Users/fe/Desktop/apis_app/wwwroot/Image/logo/nav-bar-icon/menu-cloud-radar.png",
