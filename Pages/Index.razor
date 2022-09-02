@@ -839,28 +839,6 @@
                 <div class="card RainfallCard">
                     <div class="card-body">
                         <div class="row align-items-center">
-                            <div class="col-xl-9">
-                                <!-- <div class="chart"> -->
-                                    <!-- <div class="chartjs-size-monitor">
-                                        <div class="chartjs-size-monitor-expand">
-                                            <div class=""></div>
-                                        </div>
-                                        <div class="chartjs-size-monitor-shrink">
-                                            <div class=""></div>
-                                        </div>
-                                    </div> -->
-                                    <div class="chart-info">
-                                    <img src="Image/logo/icons/rain-level/raining-24-amount.png" alt="">
-                                        <div>สถานีวัดปริมาณฝน</div>
-                                        <h3>
-                                            <span>@rain_level_measurement_station_total</span>&nbsp;<small>สถานี</small>
-                                        </h3>
-                                    </div>
-                                    <!-- <canvas height="1368" width="1368"
-                                        style="display: block; height: 684px; width: 684px;"
-                                        class="chartjs-render-monitor"></canvas> -->
-                                <!-- </div> -->
-                            </div>
                             <div class="col-xl-6">
                                     <figure class="highcharts-figure">
                                             <div id="rain_level_chart"></div>
@@ -930,18 +908,6 @@
                 <div class="card WaterLevelCard">
                     <div class="card-body">
                         <div class="row align-items-center">
-                            <div class="col-xl-10">
-                                <!-- <div class="chart"> -->
-                                    <div class="chart-info">
-                                        <img src="Image/logo/icons/water-level/water-level-24-icon.png" alt="">
-                                        <div>
-                                            สถานีวัดระดับน้ำ 
-                                        </div>
-                                        <h3><span>@water_level_measurement_station_total</span>&nbsp;<small>สถานี</small>
-                                        </h3>
-                                    </div>
-                                <!-- </div> -->
-                            </div>
                             <div class="col-xl-6">
                                     <figure class="highcharts-figure">
                                             <div id="water_station_chart"></div>
@@ -1151,9 +1117,9 @@ private async Task<object> post_request(string url , object postBody){
     <!-- request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "my-token"); -->
 
     <!-- add custom http header -->
-    request.Headers.Add("appId", "test-000001");
-    request.Headers.Add("appSecret", "12345678900987654321");
-    request.Headers.Add("device-uuid", "B765CF34-47BC-4493-8B5B-E85184DC34B3");
+    request.Headers.Add("appId", "test");
+    request.Headers.Add("appSecret", "12345");
+    request.Headers.Add("device-uuid", "B765CF34");
 
     <!-- send request -->
     var response = await HttpClient.SendAsync(request);
@@ -1272,8 +1238,8 @@ protected void Get_raining_status()
 
 
         <!-- APIs request section -->
-        var request_obj = new CheckMemberRequest{ keyword = "0610500807" };
-        var url = "https://test.roastest.rabbit.co.th/auth/check-user";
+        var request_obj = new CheckMemberRequest{ keyword = "0888888888" };
+        var url = "https://test.co.th/auth";
         <!-- var response = (await post_request(url, request_obj)); -->
         <!-- Console.WriteLine(response); -->
         <!-- var test = JsonSerializer.Serialize(response); -->

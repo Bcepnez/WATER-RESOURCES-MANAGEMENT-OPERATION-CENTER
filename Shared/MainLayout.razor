@@ -296,8 +296,8 @@ province_name = "จังหวัดกรุงเทพมหานคร";
 
 protected async Task post()
 {
-var request_obj = new CheckMemberRequest{ keyword = "0610500807" };
-var url = "https://test.roastest.rabbit.co.th/auth/check-user";
+var request_obj = new CheckMemberRequest{ keyword = "0888888888" };
+var url = "https://test.co.th/auth";
 var response = (await post_request(url, request_obj));
 Console.WriteLine(response);
 var test = JsonSerializer.Serialize(response);
