@@ -1379,19 +1379,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/fe/.nuget/packages/": {}
+    "C:\\Users\\b_pon\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/fe/Desktop/apis_app/apis_app.csproj",
+      "projectUniqueName": "C:\\Users\\b_pon\\Desktop\\WATER-RESOURCES-MANAGEMENT-OPERATION-CENTER\\apis_app.csproj",
       "projectName": "apis_app",
-      "projectPath": "/Users/fe/Desktop/apis_app/apis_app.csproj",
-      "packagesPath": "/Users/fe/.nuget/packages/",
-      "outputPath": "/Users/fe/Desktop/apis_app/obj/",
+      "projectPath": "C:\\Users\\b_pon\\Desktop\\WATER-RESOURCES-MANAGEMENT-OPERATION-CENTER\\apis_app.csproj",
+      "packagesPath": "C:\\Users\\b_pon\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\b_pon\\Desktop\\WATER-RESOURCES-MANAGEMENT-OPERATION-CENTER\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/fe/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\b_pon\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -1447,7 +1447,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
