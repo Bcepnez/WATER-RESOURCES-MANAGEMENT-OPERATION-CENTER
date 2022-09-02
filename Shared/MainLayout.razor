@@ -1,6 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @using System.Text.Json
 @using System.Text
+@using apis_app.Data.ML.Weather.WaterBoard
 @inject HttpClient HttpClient
 
 <PageTitle>ศูนย์ข้อมูลน้ำระดับจังหวัด</PageTitle>
@@ -8,360 +9,384 @@
 <div class="page">
     <div class="sidebar " style="@sidebarWidth">
 
-        @if (width <= 100) { <!-- Console.WriteLine("MainLayout if : "+width); -->
+        @if (width <= 100) {
+            <!-- Console.WriteLine("MainLayout if : "+width); -->
             <div style=" text-align: center;">
-            <div class="menu-item">
-                <a href="/">
-                    <img src="Image/logo/nav-bar-icon/logo.png" class="logo-small img-responsive padding-5" alt=""
-                        title="คลังข้อมูลน้ำแห่งชาติ">
-                </a>
-            </div>
-            <div class="nav-item">
-                <NavLink class="nav-link" href="radar">
-                    <img src="Image/logo/nav-bar-icon/menu-cloud-radar.png" alt="ภาพเมฆและเรดาร์"
-                        title="ภาพเมฆและเรดาร์">
+                <div class="menu-item">
+                    <a href="/">
+                        <img src="Image/logo/nav-bar-icon/logo.png" class="logo-small img-responsive padding-5" alt=""
+                         title="คลังข้อมูลน้ำแห่งชาติ">
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="radar">
+                        <img src="Image/logo/nav-bar-icon/menu-cloud-radar.png" alt="ภาพเมฆและเรดาร์"
+                         title="ภาพเมฆและเรดาร์">
 
-                </NavLink>
-            </div>
-            <div class="nav-item">
-                <NavLink class="nav-link" href="rainfall">
-                    <img src="Image/logo/nav-bar-icon/menu-raining-24.png" alt="ปริมาณฝน 24 ชม."
-                        title="ปริมาณฝน 24 ชม.">
+                    </NavLink>
+                </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="rainfall">
+                        <img src="Image/logo/nav-bar-icon/menu-raining-24.png" alt="ปริมาณฝน 24 ชม."
+                         title="ปริมาณฝน 24 ชม.">
 
-                </NavLink>
-            </div>
+                    </NavLink>
+                </div>
 
-            <div class="nav-item">
-                <NavLink class="nav-link" href="wl">
-                    <img src="Image/logo/nav-bar-icon/menu-water-level.png" alt="ข้อมูลระดับน้ำ" title="ข้อมูลระดับน้ำ">
-                </NavLink>
-            </div>
-            <div class="nav-item">
-                <NavLink class="nav-link" href="dam">
-                    <img src="Image/logo/nav-bar-icon/menu-dam.png" alt="ข้อมูลน้ำในเขื่อน" title="ข้อมูลน้ำในเขื่อน">
-                </NavLink>
-            </div>
-            <div class="nav-item">
-                <NavLink class="nav-link" href="moisture">
-                    <img src="Image/logo/nav-bar-icon/menu-moisture.png" alt="ข้อมูลความชื้น" title="ข้อมูลความชื้น">
-                </NavLink>
-            </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="wl">
+                        <img src="Image/logo/nav-bar-icon/menu-water-level.png" alt="ข้อมูลระดับน้ำ" title="ข้อมูลระดับน้ำ">
+                    </NavLink>
+                </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="dam">
+                        <img src="Image/logo/nav-bar-icon/menu-dam.png" alt="ข้อมูลน้ำในเขื่อน" title="ข้อมูลน้ำในเขื่อน">
+                    </NavLink>
+                </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="moisture">
+                        <img src="Image/logo/nav-bar-icon/menu-moisture.png" alt="ข้อมูลความชื้น" title="ข้อมูลความชื้น">
+                    </NavLink>
+                </div>
 
-            <div class="nav-item">
-                <NavLink class="nav-link" href="storm">
-                    <img src="Image/logo/nav-bar-icon/menu-storm.png" alt="เส้นทางพายุ" title="เส้นทางพายุ">
-                </NavLink>
-            </div>
-            <div class="nav-item">
-                <NavLink class="nav-link" href="/forecast/rainfall">
-                    <img src="Image/logo/nav-bar-icon/menu-raining-forecasting.png" alt="คาดการณ์ฝน" title="คาดการณ์ฝน">
-                </NavLink>
-            </div>
-            <div class="nav-item">
-                <NavLink class="nav-link" href="flashflood">
-                    <img src="Image/logo/nav-bar-icon/menu-flood.png" alt="ติดตามน้ำท่วมฉับพลัน"
-                        title="ติดตามน้ำท่วมฉับพลัน">
-                    <!-- <div class="menu-icon">
-                        <svg class="jss1" focusable="false" viewBox="1 8 31 15" aria-hidden="true" transform="translate(0 5)" style="fill: white;"><path d="M28.669 12.144l-4.444-4.444v-6.675h-2.962v3.706l-4.45-4.45-11.863 11.863v0.744h2.963v7.412h7.412v-4.444h2.962v4.444h7.413v-7.419h2.962v-0.738z"></path><path d="M30.081 27.694c-1.094-1.175-2.775-1.613-4.3-1.119-0.669 0.238-1.275 0.631-1.769 1.144-1.038 1.144-2.813 1.225-3.95 0.188-0.063-0.056-0.125-0.119-0.188-0.188v-0.075c-1.1-1.175-2.781-1.613-4.319-1.119-0.662 0.244-1.269 0.637-1.756 1.144-1.037 1.144-2.813 1.225-3.95 0.188-0.063-0.056-0.125-0.119-0.188-0.188l-0.075-0.075c-1.1-1.175-2.781-1.613-4.319-1.119-0.688 0.25-1.313 0.656-1.819 1.188-0.344 0.456-0.381 1.075-0.087 1.563 0.181 0.344 0.6 0.475 0.944 0.294 0.081-0.044 0.156-0.106 0.219-0.175 1.044-1.137 2.813-1.212 3.956-0.169 0.056 0.056 0.113 0.113 0.169 0.169 0.494 0.512 1.1 0.906 1.769 1.144 1.531 0.5 3.219 0.063 4.319-1.119h0.075c1.044-1.137 2.812-1.212 3.956-0.169 0.056 0.056 0.113 0.113 0.169 0.169 0.494 0.512 1.1 0.906 1.769 1.144 0.4 0.144 0.813 0.219 1.238 0.225 1.156-0.044 2.256-0.525 3.081-1.337h0.075c1.044-1.15 2.825-1.238 3.975-0.194 0.069 0.063 0.131 0.125 0.194 0.194 0.288 0.256 0.731 0.238 0.988-0.050 0.063-0.069 0.113-0.156 0.144-0.244 0.181-0.481 0.063-1.038-0.319-1.413z"></path><path d="M30.081 21.694c-1.1-1.169-2.775-1.6-4.3-1.119-0.669 0.238-1.275 0.631-1.769 1.144-1.038 1.144-2.813 1.225-3.95 0.188-0.063-0.056-0.125-0.119-0.188-0.188v-0.075c-1.106-1.169-2.781-1.6-4.319-1.119-0.662 0.244-1.269 0.637-1.756 1.144-1.037 1.144-2.813 1.225-3.95 0.188-0.063-0.056-0.125-0.119-0.188-0.188l-0.075-0.075c-1.106-1.169-2.781-1.6-4.319-1.119-0.694 0.25-1.313 0.669-1.819 1.206-0.319 0.438-0.356 1.019-0.087 1.488 0.163 0.344 0.575 0.481 0.912 0.319 0.1-0.044 0.181-0.113 0.25-0.2 1.044-1.137 2.813-1.212 3.956-0.169 0.056 0.056 0.113 0.113 0.169 0.169 0.456 0.556 1.037 1 1.694 1.294 1.531 0.5 3.219 0.063 4.319-1.119l0.075-0.075c1.044-1.137 2.813-1.212 3.956-0.169 0.056 0.056 0.113 0.113 0.169 0.169 0.494 0.506 1.1 0.894 1.769 1.131 0.394 0.15 0.813 0.225 1.238 0.225 1.163-0.038 2.262-0.519 3.081-1.337l0.075-0.075c1.063-1.131 2.844-1.188 3.975-0.125 0.069 0.063 0.131 0.131 0.194 0.2 0.288 0.256 0.731 0.238 0.988-0.050 0.063-0.069 0.113-0.156 0.144-0.244 0.206-0.469 0.113-1.025-0.244-1.419z"></path></svg>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="storm">
+                        <img src="Image/logo/nav-bar-icon/menu-storm.png" alt="เส้นทางพายุ" title="เส้นทางพายุ">
+                    </NavLink>
+                </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="/forecast/rainfall">
+                        <img src="Image/logo/nav-bar-icon/menu-raining-forecasting.png" alt="คาดการณ์ฝน" title="คาดการณ์ฝน">
+                    </NavLink>
+                </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="flashflood">
+                        <img src="Image/logo/nav-bar-icon/menu-flood.png" alt="ติดตามน้ำท่วมฉับพลัน"
+                         title="ติดตามน้ำท่วมฉับพลัน">
+                        <!-- <div class="menu-icon">
+                            <svg class="jss1" focusable="false" viewBox="1 8 31 15" aria-hidden="true" transform="translate(0 5)" style="fill: white;"><path d="M28.669 12.144l-4.444-4.444v-6.675h-2.962v3.706l-4.45-4.45-11.863 11.863v0.744h2.963v7.412h7.412v-4.444h2.962v4.444h7.413v-7.419h2.962v-0.738z"></path><path d="M30.081 27.694c-1.094-1.175-2.775-1.613-4.3-1.119-0.669 0.238-1.275 0.631-1.769 1.144-1.038 1.144-2.813 1.225-3.95 0.188-0.063-0.056-0.125-0.119-0.188-0.188v-0.075c-1.1-1.175-2.781-1.613-4.319-1.119-0.662 0.244-1.269 0.637-1.756 1.144-1.037 1.144-2.813 1.225-3.95 0.188-0.063-0.056-0.125-0.119-0.188-0.188l-0.075-0.075c-1.1-1.175-2.781-1.613-4.319-1.119-0.688 0.25-1.313 0.656-1.819 1.188-0.344 0.456-0.381 1.075-0.087 1.563 0.181 0.344 0.6 0.475 0.944 0.294 0.081-0.044 0.156-0.106 0.219-0.175 1.044-1.137 2.813-1.212 3.956-0.169 0.056 0.056 0.113 0.113 0.169 0.169 0.494 0.512 1.1 0.906 1.769 1.144 1.531 0.5 3.219 0.063 4.319-1.119h0.075c1.044-1.137 2.812-1.212 3.956-0.169 0.056 0.056 0.113 0.113 0.169 0.169 0.494 0.512 1.1 0.906 1.769 1.144 0.4 0.144 0.813 0.219 1.238 0.225 1.156-0.044 2.256-0.525 3.081-1.337h0.075c1.044-1.15 2.825-1.238 3.975-0.194 0.069 0.063 0.131 0.125 0.194 0.194 0.288 0.256 0.731 0.238 0.988-0.050 0.063-0.069 0.113-0.156 0.144-0.244 0.181-0.481 0.063-1.038-0.319-1.413z"></path><path d="M30.081 21.694c-1.1-1.169-2.775-1.6-4.3-1.119-0.669 0.238-1.275 0.631-1.769 1.144-1.038 1.144-2.813 1.225-3.95 0.188-0.063-0.056-0.125-0.119-0.188-0.188v-0.075c-1.106-1.169-2.781-1.6-4.319-1.119-0.662 0.244-1.269 0.637-1.756 1.144-1.037 1.144-2.813 1.225-3.95 0.188-0.063-0.056-0.125-0.119-0.188-0.188l-0.075-0.075c-1.106-1.169-2.781-1.6-4.319-1.119-0.694 0.25-1.313 0.669-1.819 1.206-0.319 0.438-0.356 1.019-0.087 1.488 0.163 0.344 0.575 0.481 0.912 0.319 0.1-0.044 0.181-0.113 0.25-0.2 1.044-1.137 2.813-1.212 3.956-0.169 0.056 0.056 0.113 0.113 0.169 0.169 0.456 0.556 1.037 1 1.694 1.294 1.531 0.5 3.219 0.063 4.319-1.119l0.075-0.075c1.044-1.137 2.813-1.212 3.956-0.169 0.056 0.056 0.113 0.113 0.169 0.169 0.494 0.506 1.1 0.894 1.769 1.131 0.394 0.15 0.813 0.225 1.238 0.225 1.163-0.038 2.262-0.519 3.081-1.337l0.075-0.075c1.063-1.131 2.844-1.188 3.975-0.125 0.069 0.063 0.131 0.131 0.194 0.2 0.288 0.256 0.731 0.238 0.988-0.050 0.063-0.069 0.113-0.156 0.144-0.244 0.206-0.469 0.113-1.025-0.244-1.419z"></path></svg>
 
-                    </div> -->
+                        </div> -->
 
-                </NavLink>
+                    </NavLink>
+                </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="forecast/wave">
+                        <img src="Image/logo/nav-bar-icon/menu-wave-forecasting.png" alt="คาดการณ์คลื่น"
+                         title="คาดการณ์คลื่น">
+                    </NavLink>
+                </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="fullmap">
+                        <img src="Image/logo/nav-bar-icon/gis.png" alt="" title="ระบบแผนที่">
+                    </NavLink>
+                </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="http://tiservice.hii.or.th/WRMOC/web/V2/yRainProv_Anomaly.html">
+                        <i class="icofont icofont-chart-bar-graph" style="color: rgb(255, 255, 255);"></i>
+                    </NavLink>
+                </div>
             </div>
-            <div class="nav-item">
-                <NavLink class="nav-link" href="forecast/wave">
-                    <img src="Image/logo/nav-bar-icon/menu-wave-forecasting.png" alt="คาดการณ์คลื่น"
-                        title="คาดการณ์คลื่น">
-                </NavLink>
-            </div>
-            <div class="nav-item">
-                <NavLink class="nav-link" href="fullmap">
-                    <img src="Image/logo/nav-bar-icon/gis.png" alt="" title="ระบบแผนที่">
-                </NavLink>
-            </div>
-            <div class="nav-item">
-                <NavLink class="nav-link" href="http://tiservice.hii.or.th/WRMOC/web/V2/yRainProv_Anomaly.html">
-                    <i class="icofont icofont-chart-bar-graph" style="color: rgb(255, 255, 255);"></i>
-                </NavLink>
-            </div>
-    </div>
-    } else {
-    <NavMenu />
-    }
-    <div class="nav-item px-3" style="text-align: center;">
-        <a href="javascript:void(0)" data-toggle="collapse" role="button" aria-expanded="false"
-            aria-controls="navbarcollapse">
+        } else {
+            <NavMenu />
+        }
+        <div class="nav-item px-3" style="text-align: center;">
+            <a href="javascript:void(0)" data-toggle="collapse" role="button" aria-expanded="false"
+               aria-controls="navbarcollapse">
 
-            @if (width <= 100) { <div style="text-align: center;">
-                <i class="icofont icofont-circled-right orange" @onclick="OpenNav"></i>
-    </div>
-
-    } else {
-    <div style="text-align: center;">
-        <i class="icofont icofont-circled-left orange" @onclick="CloseNav"></i>
-        <span class="orange" @onclick="CloseNav">COLLAPSE MENU</span>
-    </div>
-    }
-    </a>
-</div>
-
-<div class="ps__rail-x" style="left: 0px; bottom: 0px;">
-    <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
-</div>
-<div class="ps__rail-y" style="top: 0px; right: 0px; height: 50px;">
-    <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 50px;"></div>
-</div>
-</div>
-
-<main>
-    <div class="toprow">
-        <header class="bg-white sticky-top mb-relative">
-            <nav class="navbar navbar-light bg-white border-bottom py-0">
-                <div class="container align-items-stretch flex-column flex-lg-row">
-                    <div class="border-lg-right p-2 d-flex justify-content-between rounded mx-auto d-block">
-                        &nbsp;<img src="Image/logo/0.png" alt="กระทรวงมหาดไทย">&nbsp;
-                        &nbsp;<img src="Image/logo/nhc.png" alt="คลังข้อมูลน้ำแห่งชาติ">&nbsp;
-                        &nbsp;<img src="Image/logo/67.png" alt="logo">&nbsp;
+                @if (width <= 100) {
+                    <div style="text-align: center;">
+                        <i class="icofont icofont-circled-right orange" @onclick="OpenNav"></i>
                     </div>
-                    <div class="pt-3 mr-lg-auto px-lg-3 header-title text-center">
-                        <h5 class="mb-0 text-primary">ศูนย์ข้อมูลน้ำระดับจังหวัด</h5>
-                        <small>WATER RESOURCES MANAGEMENT OPERATION CENTER</small>
+
+                } else {
+                    <div style="text-align: center;">
+                        <i class="icofont icofont-circled-left orange" @onclick="CloseNav"></i>
+                        <span class="orange" @onclick="CloseNav">COLLAPSE MENU</span>
                     </div>
-                    <div class="px-3 py-2 mx-auto d-flex">
-                        <div class="align-self-center">
-                            <div role="presentation" class="bg-primary text-white py-1 px-4 text-center badge-pill"
-                                style="cursor: text;"><u title=""
-                                    style="text-decoration-color: rgba(131, 176, 215, 0);">@province_name&nbsp;</u>
+                }
+            </a>
+        </div> 
+        <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+        </div>
+        <div class="ps__rail-y" style="top: 0px; right: 0px; height: 50px;">
+            <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 50px;"></div>
+        </div>
+    </div>
+
+    <main>
+        <div class="toprow">
+            <header class="bg-white sticky-top mb-relative">
+                <nav class="navbar navbar-light bg-white border-bottom py-0">
+                    <div class="container align-items-stretch flex-column flex-lg-row">
+                        <div class="border-lg-right p-2 d-flex justify-content-between rounded mx-auto d-block">
+                            &nbsp;<img src="Image/logo/ddpm_logo.png" alt="กรมป้องกันและบรรเทาสาธารณภัย" width="60">&nbsp;
+                            &nbsp;<img src="Image/logo/nhc.png" alt="คลังข้อมูลน้ำแห่งชาติ"  width="60">&nbsp;
+                            &nbsp;<img src="Image/logo/67.png" alt="logo"  width="60">&nbsp;
+                        </div>
+                        <div class="pt-3 mr-lg-auto px-lg-3 header-title text-center">
+                            <h5 class="mb-0 text-primary">ศูนย์ข้อมูลน้ำระดับจังหวัด</h5>
+                            <small>WATER RESOURCES MANAGEMENT OPERATION CENTER</small>
+                        </div>
+                        <div class="px-3 py-2 mx-auto d-flex">
+                            <div class="align-self-center">
+                                <div role="presentation" class="bg-primary text-white py-1 px-4 text-center badge-pill"
+                                     style="cursor: text;">
+                                    <u title=""
+                                       style="text-decoration-color: rgba(131, 176, 215, 0);">@province_name&nbsp;</u>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown d-lg-flex border-lg-left border-right d-none justify-content-center notification-panel"
+                             @onclick="OpenNav">
+                            <a class="dropdown-toggle align-self-center" href="#" role="button" id="dropdownMenuLink"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="Image/logo/planet-earth.png" alt="" title="แจ้งสถานการณ์จาก ป.ภ.">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-item text-primary text-center border-bottom-0">ไม่มีรายงาน</div>
+                            </div>
+                        </div>
+                        <div class="dropdown d-lg-flex d-none justify-content-center">
+                            <a class="dropdown-toggle align-self-center" href="#" role="button" id="dropdownMenuLink"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="Image/logo/ellipse.png" alt="">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                <h6 class="dropdown-header">เปลี่ยนภาษา</h6><a class="dropdown-item" href="#">
+                                    <img src="Image/logo/TH.png" alt="">ไทย
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <div class="dropdown d-lg-flex border-lg-left border-right d-none justify-content-center notification-panel"
-                        @onclick="OpenNav">
-                        <a class="dropdown-toggle align-self-center" href="#" role="button" id="dropdownMenuLink"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
-                                src="Image/logo/planet-earth.png" alt="" title="แจ้งสถานการณ์จาก ป.ภ."></a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-item text-primary text-center border-bottom-0">ไม่มีรายงาน</div>
+                </nav>
+            </header>
+        </div>
+        <div class="toprow">
+            <nav class="navbar navbar-light bg-white border-bottom py-0">
+                &nbsp;
+                <div class="mr-2">
+                    <small>ฝนสูงสุดวานนี้</small>
+                    <h4 class="m-0 text-primary">
+                        <div title="">@rain_level_2daysago_max</div>
+                    </h4><small>(มม.)</small>
+                </div>
+                <div class="mr-2">
+                    <small>ฝนสะสม 3 วัน</small>
+                    <h4 class="m-0 text-primary">
+                        <div title="">@rain_level_3daysago_avg</div>
+                    </h4><small>(มม.)</small>
+                </div>
+                <div class="mr-2">
+                    <small>ฝนสะสม 7 วัน</small>
+                    <h4 class="m-0 text-primary">
+                        <div title="">@rain_level_7daysago_avg</div>
+                    </h4><small>(มม.)</small>
+                </div>
+                <div class="mr-2">
+                    <small>อุณหภูมิในรอบสัปดาห์</small>
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="m-0 text-primary degree-celsius">@max_temp_of_week</h4>
+                            <small>สูงสุด<i class='fas fa-caret-up' style='font-size:12px;color:green'></i></small>
                         </div>
-                    </div>
-                    <div class="dropdown d-lg-flex d-none justify-content-center"><a
-                            class="dropdown-toggle align-self-center" href="#" role="button" id="dropdownMenuLink"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
-                                src="Image/logo/ellipse.png" alt=""></a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                            <h6 class="dropdown-header">เปลี่ยนภาษา</h6><a class="dropdown-item" href="#"><img
-                                    src="Image/logo/TH.png" alt="">ไทย</a>
+                        <div class="col">
+                            <h4 class="m-0 text-primary degree-celsius">@min_temp_of_week</h4>
+                            <small>ต่ำสุด<i class='fas fa-caret-down' style='font-size:12px;color:red'></i></small>
                         </div>
                     </div>
                 </div>
+                <div class="mr-2">
+                    <small>ปริมาณน้ำใช้การรวมของ<br> เขื่อน วันนี้ปีที่ผ่านมา</small>
+                    <h4 class="m-0 text-primary">
+                        @volumn_of_water_usage<small>
+                            (@volumn_of_water_usage_percentage%)
+                        </small>
+                    </h4>
+                </div>
+                <div class="DisasterArea">
+                    <small>พื้นที่เกิดสาธารณภัย</small>
+                    <table class="table table-sm table-borderless small mb-0">
+                        <tbody>
+                            <tr>
+                                <td>อุทกภัย</td>
+                                <td>
+                                    <span class="badge badge-secondary">
+                                        <span style="color:black">@number_of_flood_district</span>
+                                    </span>
+                                </td>
+                                <td>อำเภอ</td>
+                            </tr>
+                            <tr>
+                                <td>ภัยแล้ง</td>
+                                <td>
+                                    <span class="badge badge-secondary">
+                                        <span style="color:black">@number_of_drought_district</span>
+                                    </span>
+                                </td>
+                                <td>อำเภอ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                &nbsp;
             </nav>
-        </header>
-    </div>
-    <div class="toprow">
-        <nav class="navbar navbar-light bg-white border-bottom py-0">
-            &nbsp;
-            <div class="mr-2"><small>ฝนสูงสุดวานนี้</small>
-                <h4 class="m-0 text-primary">
-                    <div title="">@rain_level_2daysago_max</div>
-                </h4><small>(มม.)</small>
-            </div>
-            <div class="mr-2"><small>ฝนสะสม 3 วัน</small>
-                <h4 class="m-0 text-primary">
-                    <div title="">@rain_level_3daysago_avg</div>
-                </h4><small>(มม.)</small>
-            </div>
-            <div class="mr-2"><small>ฝนสะสม 7 วัน</small>
-                <h4 class="m-0 text-primary">
-                    <div title="">@rain_level_7daysago_avg</div>
-                </h4><small>(มม.)</small>
-            </div>
-            <div class="mr-2"><small>อุณหภูมิในรอบสัปดาห์</small>
-                <div class="row">
-                    <div class="col">
-                        <h4 class="m-0 text-primary degree-celsius">@max_temp_of_week</h4>
-                        <small>สูงสุด<i class='fas fa-caret-up' style='font-size:12px;color:green'></i></small>
-                    </div>
-                    <div class="col">
-                        <h4 class="m-0 text-primary degree-celsius">@min_temp_of_week</h4>
-                        <small>ต่ำสุด<i class='fas fa-caret-down' style='font-size:12px;color:red'></i></small>
-                    </div>
-                </div>
-            </div>
-            <div class="mr-2"><small>ปริมาณน้ำใช้การรวมของ<br> เขื่อน วันนี้ปีที่ผ่านมา</small>
-                <h4 class="m-0 text-primary">@volumn_of_water_usage<small>
-                        (@volumn_of_water_usage_percentage%)</small></h4>
-            </div>
-            <div class="DisasterArea"><small>พื้นที่เกิดสาธารณภัย</small>
-                <table class="table table-sm table-borderless small mb-0">
-                    <tbody>
-                        <tr>
-                            <td>อุทกภัย</td>
-                            <td><span class="badge badge-secondary">
-                                    <div>@number_of_flood_district</div>
-                                </span></td>
-                            <td>อำเภอ</td>
-                        </tr>
-                        <tr>
-                            <td>ภัยแล้ง</td>
-                            <td><span class="badge badge-secondary">
-                                    <div>@number_of_drought_district</div>
-                                </span></td>
-                            <td>อำเภอ</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            &nbsp;
-        </nav>
-    </div>
+        </div>
 
-    <article class="content px-4">
-        @Body
-    </article>
-</main>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
 </div>
 
-@code{
+@code {
 
-private double rain_level_2daysago_max = 0;
-private double rain_level_3daysago_avg = 0;
-private double rain_level_7daysago_avg = 0;
-private double max_temp_of_week = 0;
-private double min_temp_of_week = 0;
-private double volumn_of_water_usage = 0;
-private double volumn_of_water_usage_percentage = 0;
-private int number_of_flood_district = 0;
-private int number_of_drought_district = 0;
-private string province_name = "จังหวัดเพชรบูรณ์";
+    private double rain_level_2daysago_max = 0;
+    private double rain_level_3daysago_avg = 0;
+    private double rain_level_7daysago_avg = 0;
+    private double max_temp_of_week = 0;
+    private double min_temp_of_week = 0;
+    private double volumn_of_water_usage = 0;
+    private double volumn_of_water_usage_percentage = 0;
+    private int number_of_flood_district = 0;
+    private int number_of_drought_district = 0;
+    private string province_name = "จังหวัดเพชรบูรณ์";
 
-private bool collapseNavMenu = false;
+    private bool collapseNavMenu = false;
 
-private string? NavMenuCssClass => collapseNavMenu ? "collapse" : "collapse.show";
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : "collapse.show";
 
-private void ToggleNavMenu()
-{
-collapseNavMenu = !collapseNavMenu;
-Console.WriteLine("MainLayout "+collapseNavMenu);
-}
-
-int width = 80;
-string sidebarWidth => $"width: {width}px;";
-string mainMargin => $"margin-left: {width}px;";
-void OpenNav() => width = 220;
-void CloseNav() => width = 80;
-
-
-
-
-protected void Get_rain_level_2daysago_max()
-{
-rain_level_2daysago_max = 31.0;
-}
-protected void Get_rain_level_3daysago_avg()
-{
-rain_level_3daysago_avg = 75.5;
-}
-protected void Get_rain_level_7daysago_avg()
-{
-rain_level_7daysago_avg = 300.5;
-}
-protected void Get_max_temp_of_week()
-{
-max_temp_of_week = 41.5;
-}
-protected void Get_min_temp_of_week()
-{
-min_temp_of_week = 23.0;
-}
-protected void Get_volumn_of_usage_water()
-{
-volumn_of_water_usage = 55;
-}
-protected void Get_volumn_of_usage_water_percentage()
-{
-volumn_of_water_usage_percentage = 55 /0.25;
-}
-protected void Get_number_of_flood_district()
-{
-number_of_flood_district = 55;
-}
-protected void Get_number_of_drought_district()
-{
-number_of_drought_district = 1;
-}
-protected void Get_province_name()
-{
-province_name = "จังหวัดกรุงเทพมหานคร";
-}
-
-protected async Task post()
-{
-var request_obj = new CheckMemberRequest{ keyword = "0888888888" };
-var url = "https://test.co.th/auth";
-var response = (await post_request(url, request_obj));
-Console.WriteLine(response);
-var test = JsonSerializer.Serialize(response);
-Console.WriteLine(test);
-var test2 = System.Text.Json.JsonSerializer.Deserialize<CheckMemberResponse>(test);
-    Console.WriteLine(test2.statusCode);
-    Console.WriteLine(test2.statusDescription);
-    province_name = test2.statusDescription;
+    BasicInfo bais_info = new BasicInfo();
+    protected override async Task OnInitializedAsync() {
+        await LoadData();
     }
 
-    <!-- overide function for set static value or run function on initialize -->
-    protected override void OnInitialized()
-    {
-    <!-- SomeStartupMethod();
-        await SomeStartupTask(); -->
-    Get_province_name();
-    Get_rain_level_2daysago_max();
-    Get_rain_level_3daysago_avg();
-    Get_rain_level_7daysago_avg();
-    Get_max_temp_of_week();
-    Get_min_temp_of_week();
-    Get_volumn_of_usage_water();
-    Get_volumn_of_usage_water_percentage();
-    Get_number_of_flood_district();
-    Get_number_of_drought_district();
+    async private Task LoadData() {
+        bais_info = await Task.Run(() => _waterService.GetBasicInfo());
+        rain_level_2daysago_max = bais_info.rain_level_2daysago_max;
+
+
+        rain_level_3daysago_avg = bais_info.rain_level_3daysago_avg;
+        rain_level_7daysago_avg = bais_info.rain_level_7daysago_avg;
+        max_temp_of_week = bais_info.max_temp_of_week;
+        min_temp_of_week = bais_info.min_temp_of_week;
+        volumn_of_water_usage = bais_info.volumn_of_water_usage;
+        volumn_of_water_usage_percentage = bais_info.volumn_of_water_usage_percentage;
+        number_of_flood_district = bais_info.number_of_flood_district;
+        number_of_drought_district = bais_info.number_of_drought_district;
+        province_name = bais_info.province_name;
     }
 
-    <!-- overide function for use async function  on initialize -->
-    protected override async Task OnParametersSetAsync()
-    {
-    <!-- await post(); -->
+
+
+    private void ToggleNavMenu() {
+        collapseNavMenu = !collapseNavMenu;
+        Console.WriteLine("MainLayout " + collapseNavMenu);
     }
 
-    private async Task<object> post_request(string url , object postBody){
-        <!-- create request object -->
-        var request = new HttpRequestMessage(HttpMethod.Post, url);
+    int width = 80;
+    string sidebarWidth => $"width: {width}px;";
+    string mainMargin => $"margin-left: {width}px;";
+    void OpenNav() => width = 220;
+    void CloseNav() => width = 80;
 
-        <!-- Console.WriteLine(JsonSerializer.Serialize(postBody)); -->
-        request.Content = new StringContent(JsonSerializer.Serialize(postBody), Encoding.UTF8, "application/json");
 
-        <!-- add authorization header -->
-        <!-- request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "my-token"); -->
 
-        <!-- add custom http header -->
-        request.Headers.Add("appId", "test");
-        request.Headers.Add("appSecret", "12345");
-        request.Headers.Add("device-uuid", "B765CF34");
 
-        <!-- send request -->
-        var response = await HttpClient.SendAsync(request);
+    //protected void Get_rain_level_2daysago_max() {
+    //    rain_level_2daysago_max = 31.0;
+    //}
+    //protected void Get_rain_level_3daysago_avg() {
+    //    rain_level_3daysago_avg = 75.5;
+    //}
+    //protected void Get_rain_level_7daysago_avg() {
+    //    rain_level_7daysago_avg = 300.5;
+    //}
+    //protected void Get_max_temp_of_week() {
+    //    max_temp_of_week = 41.5;
+    //}
+    //protected void Get_min_temp_of_week() {
+    //    min_temp_of_week = 23.0;
+    //}
+    //protected void Get_volumn_of_usage_water() {
+    //    volumn_of_water_usage = 55;
+    //}
+    //protected void Get_volumn_of_usage_water_percentage() {
+    //    volumn_of_water_usage_percentage = 55 / 0.25;
+    //}
+    //protected void Get_number_of_flood_district() {
+    //    number_of_flood_district = 55;
+    //}
+    //protected void Get_number_of_drought_district() {
+    //    number_of_drought_district = 1;
+    //}
+    //protected void Get_province_name() {
+    //    province_name = "จังหวัดกรุงเทพมหานคร";
+    //}
 
-        <!-- convert response data to Article object -->
-        var article = await response.Content.ReadFromJsonAsync<object>();
-            return article;
-            }
-            <!-- Request Model -->
-            public class CheckMemberRequest
-            {
-            public string keyword { get; set; }
-            }
-            <!-- Response Model -->
-            public class CheckMemberResponse
-            {
-            public string statusCode { get; set; }
-            public string statusDescription { get; set; }
-            }
+    //protected async Task post() {
+    //    var request_obj = new CheckMemberRequest { keyword = "0610500807" };
+    //    var url = "https://test.roastest.rabbit.co.th/auth/check-user";
+    //    var response = (await post_request(url, request_obj));
+    //    Console.WriteLine(response);
+    //    var test = JsonSerializer.Serialize(response);
+    //    Console.WriteLine(test);
+    //    var test2 = System.Text.Json.JsonSerializer.Deserialize<CheckMemberResponse>(test);
+    //    Console.WriteLine(test2.statusCode);
+    //    Console.WriteLine(test2.statusDescription);
+    //    province_name = test2.statusDescription;
+    //}
+
+    //<!-- overide function for set static value or run function on initialize -->
+    //protected override void OnInitialized() {
+    //    <!-- SomeStartupMethod();
+    //    //await SomeStartupTask(); -->
+    //    //Get_province_name();
+    //    //Get_rain_level_2daysago_max();
+    //    //Get_rain_level_3daysago_avg();
+    //    //Get_rain_level_7daysago_avg();
+    //    //Get_max_temp_of_week();
+    //    //Get_min_temp_of_week();
+    //    //Get_volumn_of_usage_water();
+    //    //Get_volumn_of_usage_water_percentage();
+    //    //Get_number_of_flood_district();
+    //    //Get_number_of_drought_district();
+    //}
+
+    //<!-- overide function for use async function  on initialize -->
+    //protected override async Task OnParametersSetAsync() {
+    //    <!-- await post(); -->
+    //}
+
+    //private async Task<object> post_request(string url, object postBody) {
+    //    <!-- create request object -->
+    //    var request = new HttpRequestMessage(HttpMethod.Post, url);
+
+    //    <!-- Console.WriteLine(JsonSerializer.Serialize(postBody)); -->
+    //    request.Content = new StringContent(JsonSerializer.Serialize(postBody), Encoding.UTF8, "application/json");
+
+    //    <!-- add authorization header -->
+    //    <!-- request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "my-token"); -->
+    //    <!-- add custom http header -->
+    //    request.Headers.Add("appId", "test");
+    //    request.Headers.Add("appSecret", "12345");
+    //    request.Headers.Add("device-uuid", "B765CF34");
+
+    //    <!-- send request -->
+    //    var response = await HttpClient.SendAsync(request);
+
+    //    <!-- convert response data to Article object -->
+    //    var article = await response.Content.ReadFromJsonAsync<object>();
+    //    return article;
+    //}
+    <!-- Request Model -->
+    //public class CheckMemberRequest {
+    //    public string keyword { get; set; }
+    //}
+    //<!-- Response Model -->
+    //public class CheckMemberResponse {
+    //    public string statusCode { get; set; }
+    //    public string statusDescription { get; set; }
+        //}
             }

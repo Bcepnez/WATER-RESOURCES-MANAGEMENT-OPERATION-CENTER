@@ -3,16 +3,21 @@ using Microsoft.AspNetCore.Components.Web;
 using apis_app.Data;
 using System.Text;
 using System.Text.Json;
-using Syncfusion.Blazor;
+using apis_app.Helper;
+using apis_app.Data.DA.Weather;
 
 var builder = WebApplication.CreateBuilder(args);
+ 
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+
+builder.Services.AddScoped<WaterService, WaterService>();
+builder.Services.AddScoped<ClientService, ClientService>();
 builder.Services.AddHttpClient();
-builder.Services.AddSyncfusionBlazor(options => { options.IgnoreScriptIsolation = true; });
+ 
 
 var app = builder.Build();
 

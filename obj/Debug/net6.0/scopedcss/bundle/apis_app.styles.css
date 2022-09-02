@@ -44,6 +44,16 @@ img[b-s960ib7k4y] {
     font-size: 14px;
 }
 
+/* ol, ul, dl {
+    margin-top: 0;
+    margin-bottom: 1rem;
+} */
+/* .wrapper #sidebar.active .sidebar-menu .menu-item .menu-icon {
+    min-width: 31px;
+    display: inline-block;
+    padding-right: 7px;
+} */
+
 svg:not(:root)[b-s960ib7k4y] {
     overflow: show;
 }
@@ -119,6 +129,16 @@ ul[b-s960ib7k4y] {
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
 }
+
+/* #dashboard .card {
+    font-family: 'Kanit';
+    height: 100%;
+    border: unset;
+    -webkit-box-shadow: 2px 2px 10px 1px rgb(189 189 189);
+    -moz-box-shadow: 2px 2px 10px 1px rgba(189, 189, 189, 1);
+    box-shadow: 2px 2px 10px 1px rgb(189 189 189);
+    transition: all 0.3s ease;
+} */
 
 .grid-container[b-s960ib7k4y] {
     display: grid;
