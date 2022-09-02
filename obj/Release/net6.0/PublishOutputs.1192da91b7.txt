@@ -1,0 +1,8 @@
+D:\TGit\DMP-WATER\DMP-WATER\QWATER\Water\Water\obj\Release\net6.0\PubTmp\Out\apis_app.exe
+D:\TGit\DMP-WATER\DMP-WATER\QWATER\Water\Water\obj\Release\net6.0\PubTmp\Out\appsettings.Development.json
+D:\TGit\DMP-WATER\DMP-WATER\QWATER\Water\Water\obj\Release\net6.0\PubTmp\Out\appsettings.json
+D:\TGit\DMP-WATER\DMP-WATER\QWATER\Water\Water\obj\Release\net6.0\PubTmp\Out\apis_app.dll
+D:\TGit\DMP-WATER\DMP-WATER\QWATER\Water\Water\obj\Release\net6.0\PubTmp\Out\apis_app.deps.json
+D:\TGit\DMP-WATER\DMP-WATER\QWATER\Water\Water\obj\Release\net6.0\PubTmp\Out\apis_app.runtimeconfig.json
+D:\TGit\DMP-WATER\DMP-WATER\QWATER\Water\Water\obj\Release\net6.0\PubTmp\Out\apis_app.pdb
+D:\TGit\DMP-WATER\DMP-WATER\QWATER\Water\Water\obj\Release\net6.0\PubTmp\Out\Newtonsoft.Json.dll

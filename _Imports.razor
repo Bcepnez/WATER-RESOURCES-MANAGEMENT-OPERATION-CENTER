@@ -7,7 +7,13 @@
 @using Microsoft.AspNetCore.Components.Web.Virtualization
 @using Microsoft.JSInterop
 @using apis_app
+@using apis_app.Data.DA.Weather
+@using apis_app.Helper
 @using apis_app.Shared
-@using Radzen
-@using Radzen.Blazor
-@using Syncfusion.Blazor
+
+
+
+
+
+ @inject WaterService _waterService
+ @inject ClientService _clientService
