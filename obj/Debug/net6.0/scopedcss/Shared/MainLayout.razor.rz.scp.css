@@ -31,13 +31,13 @@ img[b-q82m8iur5s] {
     border-style: none;
 }
 
-/* .wrapper #sidebar .sidebar-menu {
+.wrapper #sidebar .sidebar-menu[b-q82m8iur5s] {
     list-style-type: none;
     padding: 0 10px;
     border-bottom: 1px solid #707070;
-} */
+}
 
-.wrapper #sidebar .sidebar-menu .menu-item .nav-item[b-q82m8iur5s] {
+.wrapper #sidebar .menu-item .nav-item[b-q82m8iur5s] {
     padding: 8px 0;
     border-bottom: 1px solid #707070;
     font-size: 14px;
